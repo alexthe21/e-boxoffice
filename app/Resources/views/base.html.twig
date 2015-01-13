@@ -3,57 +3,47 @@
     <head>
         <meta charset="UTF-8" />
         <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
-        <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/semantic-ui/0.13.0/css/semantic.min.css">
+        {% stylesheets 'bundles/at21eboxoffice/css/*' filter="cssrewrite" %}
+            <link rel="stylesheet" href="{{ asset_url }}" />
+        {% endstylesheets %}
         <!-- endbower -->
         <!-- endbuild -->
         <link href='//fonts.googleapis.com/css?family=Open+Sans:400,700,300&subset=latin,vietnamese' rel='stylesheet' type='text/css'>
-
-        <!-- build:css styles/main.css -->
-        {% stylesheets '@AcmeUserBundle/Resources/public/css/*' filter='cssrewrite'%}
-            <link rel="stylesheet" type="text/css" href="{{ asset_url }}">
-        {% endstylesheets %}
     </head>
     <body>
         <nav class="ui menu inverted navbar page grid" style="margin-bottom: 0px">
-            <a href="{{ url('acme_user_homepage') }}" class="brand item">Project Name</a>
-            <div class="right menu">
-                <div class="item">
-                    <img class="ui avatar image" src="{{ asset('favicon.ico') }}">
-                    <div class="content">
-                        <a class="header">Daniel Louise</a>
-                        <div class="description">Last seen watching <a><b>Arrested Development</b></a> just now.</div>
+            <a href="{{ url('acme_user_homepage') }}" class="brand item">{{ appName }}</a>
+            {% if app.user.username is defined %}
+                <div class="ui right inverted vertical menu">
+                    <div class="ui dropdown item">
+                        <i class="caret down icon"></i>
+                        {{ app.user.username }}
+                        <div class="menu">
+                            <div class="divider"></div>
+                            <a class="item" href="{{ url('fos_user_profile_edit') }}">Edit Profile</a>
+                            <a class="item" href="{{ url('fos_user_change_password') }}">Change Password</a>
+                            <div class="divider"></div>
+                            <a class="item" href="{{ url('fos_user_security_logout') }}">Log Out</a>
+                        </div>
                     </div>
                 </div>
-            </div>
+            {% endif %}
         </nav>
-        <div class="ui grid">
-            <div class="row">
-                <div class="column padding-reset">
-                    <div class="ui huge message page grid">
-                        <h1 class="ui huge header">Hello, world!</h1>
-                        <p>This is a template for a simple marketing or informational website. It includes a large callout called a jumbotron and three supporting pieces of content. Use it as a starting point to create something more unique.</p>
-                        <a class="ui blue button">Learn more &raquo;</a>
-                    </div>
-                </div>
-            </div>
-        </div>
         <div class="ui hidden divider"></div>
         <div class="ui page grid">
             {% block body %}{% endblock %}
             <div class="row">
                 <div class="column">
                     <div class="ui divider"></div>
-                    <span>&copy; Company 2014</span>
+                    <span>&copy; E-BoxOffice 2015</span>
                 </div>
             </div>
         </div>
         <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.js"></script>
-        {% javascripts '@AcmeUserBundle/Resources/public/js/semantic.min.js'
-                        '@AcmeUserBundle/Resources/public/js/main.js'%}
+        {% javascripts '@At21EBoxOfficeBundle/Resources/public/js/semantic.min.js'
+                        '@At21EBoxOfficeBundle/Resources/public/js/main.js' %}
             <script type="text/javascript" src="{{ asset_url }}"></script>
         {% endjavascripts %}
-        {% block javascripts %}{% endblock %}
     </body>
 </html>
