@@ -2,9 +2,10 @@
 <html>
     <head>
         <meta charset="UTF-8" />
-        <title>{% block title %}Welcome!{% endblock %}</title>
+        <title>{% block title %}{% endblock %}</title>
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
-        {% stylesheets 'bundles/at21eboxoffice/css/*' filter="cssrewrite" %}
+        <link rel="stylesheet" href="{{ asset('bundles/at21eboxoffice/css/semantic.min.css') }}" />
+        {% stylesheets 'bundles/at21eboxoffice/css/main.css' filter="cssrewrite" %}
             <link rel="stylesheet" href="{{ asset_url }}" />
         {% endstylesheets %}
         <!-- endbower -->
@@ -13,7 +14,7 @@
     </head>
     <body>
         <nav class="ui menu inverted navbar page grid" style="margin-bottom: 0px">
-            <a href="{{ url('acme_user_homepage') }}" class="brand item">{{ appName }}</a>
+            <a href="{{ url('at21_eboxoffice_homepage') }}" class="brand item">{{ appName }}</a>
             {% if app.user.username is defined %}
                 <div class="ui right inverted vertical menu">
                     <div class="ui dropdown item">

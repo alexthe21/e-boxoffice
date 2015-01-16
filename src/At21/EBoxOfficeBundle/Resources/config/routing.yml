@@ -1,3 +1,11 @@
-acme_user_homepage:
+at21_eboxoffice_homepage:
     path:     /
-    defaults: { _controller: AcmeUserBundle:Default:index }
+    defaults: { _controller: At21EBoxOfficeBundle:Default:index }
+
+at21_eboxoffice_admin:
+    path:     /admin
+    defaults: { _controller: At21EBoxOfficeBundle:AdminController:index }
+
+at21_eboxoffice_admin_new_event:
+    path:     /admin/new_event
+    defaults: { _controller: At21EBoxOfficeBundle:AdminController:newEvent }
