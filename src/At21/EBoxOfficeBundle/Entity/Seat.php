@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Seat
  *
  * @ORM\Table()
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="At21\EBoxOfficeBundle\Entity\SeatRepository")
  */
 class Seat
 {
@@ -24,16 +24,52 @@ class Seat
     /**
      * @var boolean
      *
-     * @ORM\Column(name="isBusy", type="binary")
+     * @ORM\Column(name="isBusy", type="boolean")
      */
     private $isBusy;
 
     /**
-     * @var Row
+     * @var integer
      *
-     * @ORM\ManyToOne(targetEntity="Row", inversedBy="seats")
+     * @ORM\Column(name="rowNumber", type="integer")
      */
-    private $row;
+    private $rowNumber;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="columnNumber", type="integer")
+     */
+    private $columnNumber;
+
+    /**
+     * @var Event
+     *
+     * @ORM\ManyToOne(targetEntity="Event", inversedBy="seats", cascade={"persist", "remove"})
+     */
+    private $event;
+
+    /**
+     * @var User
+     *
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="seats", cascade={"persist"})
+     */
+    private $user;
+
+    /**
+     * Construct
+     *
+     * @param boolean $isBusy
+     * @param integer $rowNumber
+     * @param integer $columnNumber
+     */
+    public function __construct($event, $isBusy, $rowNumber, $columnNumber)
+    {
+        $this->event = $event;
+        $this->isBusy = $isBusy;
+        $this->rowNumber = $rowNumber;
+        $this->columnNumber = $columnNumber;
+    }
 
     /**
      * Get id
@@ -69,22 +105,81 @@ class Seat
     }
 
     /**
-     * Set row
+     * Get ColumnNumber
      *
-     * @return Row
+     * @return int
      */
-    public function getRow()
+    public function getRowNumber()
     {
-        return $this->row;
+        return $this->rowNumber;
     }
 
     /**
-     * Get row
+     * Set RowNumber
      *
-     * @param Row $row
+     * @param int $rowNumber
+     * @return Seat
      */
-    public function setRow($row)
+    public function setRowNumber($rowNumber)
     {
-        $this->row = $row;
+        $this->rowNumber = $rowNumber;
+
+        return $this;
+    }
+
+    /**
+     * Get ColumnNumber
+     *
+     * @return int
+     */
+    public function getColumnNumber()
+    {
+        return $this->columnNumber;
+    }
+
+    /**
+     * Set ColumnNumber
+     *
+     * @param int $columnNumber
+     * @return Seat
+     */
+    public function setColumnNumber($columnNumber)
+    {
+        $this->columnNumber = $columnNumber;
+
+        return $this;
+    }
+
+    /**
+     * Set Event
+     *
+     * @return Event
+     */
+    public function getEvent()
+    {
+        return $this->event;
+    }
+
+    /**
+     * Set event
+     *
+     * @param Event $event
+     */
+    public function setEvent($event)
+    {
+        $this->event = $event;
+        $event->addSet($this);
+    }
+
+    /**
+     * Set User
+     *
+     * @param User $user
+     * @return Seat
+     */
+    public function setUser($user)
+    {
+        $this->user = $user;
+        return $this;
     }
 }

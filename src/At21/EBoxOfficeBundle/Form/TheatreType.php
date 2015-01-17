@@ -12,20 +12,20 @@ namespace At21\EBoxOfficeBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 
-class EventType extends AbstractType
+class TheatreType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('date', 'datetime')
-            ->add('title', 'text')
-            ->add('theatre', 'text')
+            ->add('numberOfRows', 'integer')
+            ->add('numberOfSeatsPerRow', 'integer')
+            ->add('name', 'text')
             ->add('save', 'submit')
         ;
     }
 
     public function getName()
     {
-        return 'event';
+        return 'theatre';
     }
 }

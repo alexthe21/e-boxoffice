@@ -16,18 +16,22 @@
         <nav class="ui menu inverted navbar page grid" style="margin-bottom: 0px">
             <a href="{{ url('at21_eboxoffice_homepage') }}" class="brand item">{{ appName }}</a>
             {% if app.user.username is defined %}
-                <div class="ui right inverted vertical menu">
+                <div class="ui right inverted menu">
                     <div class="ui dropdown item">
-                        <i class="caret down icon"></i>
                         {{ app.user.username }}
                         <div class="menu">
-                            <div class="divider"></div>
                             <a class="item" href="{{ url('fos_user_profile_edit') }}">Edit Profile</a>
                             <a class="item" href="{{ url('fos_user_change_password') }}">Change Password</a>
                             <div class="divider"></div>
                             <a class="item" href="{{ url('fos_user_security_logout') }}">Log Out</a>
                         </div>
+                        <i class="caret down icon"></i>
                     </div>
+                </div>
+            {% else %}
+                <div class="ui right inverted menu">
+                    <a class="item" href="{{ path('fos_user_security_login') }}">Log In</a>
+                    <a class="item" href="{{ path('fos_user_registration_register') }}">Sign Up</a>
                 </div>
             {% endif %}
         </nav>

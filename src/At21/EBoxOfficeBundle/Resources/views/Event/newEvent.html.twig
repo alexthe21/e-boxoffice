@@ -4,7 +4,7 @@
 
 {% block body %}
     <div class="sixteen wide column">
-        <form class="ui form" action="{{ path('at21_eboxoffice_admin_new_event') }}" {{ form_enctype(form) }} method="POST" class="fos_user_profile_edit">
+        <form class="ui form" action="{{ path('at21_eboxoffice_event_new') }}" {{ form_enctype(form) }} method="POST" class="fos_user_profile_edit">
             <h4 class="ui dividing header">New Event</h4>
             <div class="four fields">
                 <div class="ui input field">
@@ -14,6 +14,10 @@
                 <div class="ui input field">
                     {{ form_label(form.title) }}
                     {{ form_widget(form.title) }}
+                </div>
+                <div class="ui input field">
+                    {{ form_label(form.theatre) }}
+                    {{ form_widget(form.theatre) }}
                 </div>
                 {{ form_widget(form._token) }}
             </div>

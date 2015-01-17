@@ -3,9 +3,24 @@ at21_eboxoffice_homepage:
     defaults: { _controller: At21EBoxOfficeBundle:Default:index }
 
 at21_eboxoffice_admin:
-    path:     /admin
-    defaults: { _controller: At21EBoxOfficeBundle:AdminController:index }
+    path:     /admin/
+    defaults: { _controller: At21EBoxOfficeBundle:Admin:index }
 
-at21_eboxoffice_admin_new_event:
-    path:     /admin/new_event
-    defaults: { _controller: At21EBoxOfficeBundle:AdminController:newEvent }
+at21_eboxoffice_event_new:
+    path:     /event/new
+    defaults: { _controller: At21EBoxOfficeBundle:Event:newEvent }
+
+at21_eboxoffice_event_check:
+    path:     /event/check/{id}
+    defaults: { _controller: At21EBoxOfficeBundle:Event:checkEvent }
+
+at21_eboxoffice_event_delete:
+    path:     /event/delete/{id}
+    defaults: { _controller: At21EBoxOfficeBundle:Event:deleteEvent }
+
+
+at21_eboxoffice_theatre_new:
+    path:     /theatre/new
+    defaults: { _controller: At21EBoxOfficeBundle:Theatre:newTheatre }
+
+

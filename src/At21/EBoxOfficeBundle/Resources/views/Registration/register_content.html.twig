@@ -1,8 +1,23 @@
 {% trans_default_domain 'FOSUserBundle' %}
-
-<form action="{{ path('fos_user_registration_register') }}" {{ form_enctype(form) }} method="POST" class="fos_user_registration_register">
-    {{ form_widget(form) }}
+{% block title %}Sign Up{% endblock %}
+<form class="ui form" action="{{ path('fos_user_registration_register') }}" {{ form_enctype(form) }} method="POST" class="fos_user_registration_register">
+    <h4 class="ui dividing header">Register</h4>
+    <div class="four fields">
+        <div class="ui input field">
+            {{ form_label(form.username) }}
+            {{ form_widget(form.username) }}
+        </div>
+        <div class="ui input field">
+            {{ form_label(form.email) }}
+            {{ form_widget(form.email) }}
+        </div>
+        <div class="ui input field">
+            {{ form_label(form.plainPassword) }}
+            {{ form_widget(form.plainPassword) }}
+        </div>
+        {{ form_widget(form._token) }}
+    </div>
     <div>
-        <input type="submit" value="{{ 'registration.submit'|trans }}" />
+        <input class="ui submit button" type="submit" value="{{ 'profile.edit.submit'|trans }}" />
     </div>
 </form>

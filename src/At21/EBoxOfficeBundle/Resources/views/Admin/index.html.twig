@@ -1,7 +1,45 @@
 {% extends "::base.html.twig" %}
 
 {% block body %}
-<div class="ui list">
-    <div class="item"><a href="{{ path('at21_eboxoffice_admin_new_event') }}"></a>New Event</div>
-</div>
+    <div class="eight wide column">
+        <div class="ui list">
+            <div class="item"><a href="{{ path('at21_eboxoffice_event_new') }}">New Event</a></div>
+        </div>
+        <table class="ui very basic table">
+            <thead><th>ID</th><th>Date</th><th>Title</th><th>Theatre</th><th colspan="1"></th></thead>
+            {% for event in events %}
+                <tr>
+                    <td>{{ event.id }}</td>
+                    <td>{{ event.date|date('Y-m-d H:i:s') }}</td>
+                    <td>{{ event.title }}</td>
+                    <td>{{ event.theatre.name }}</td>
+                    <td>
+                        <div class="ui dropdown">
+                            <div class="text">Action</div>
+                            <i class="dropdown icon"></i>
+                            <div class="menu">
+                                <a href="{{ path('at21_eboxoffice_event_check', {'id': event.id}) }}"class="item">Check Availability</a>
+                                <div class="divider"></div>
+                                <a href="{{ path('at21_eboxoffice_event_delete', {'id': event.id}) }}" class="item">Delete</a>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+    <div class="eight wide column">
+        <div class="ui list">
+            <div class="item"><a href="{{ path('at21_eboxoffice_theatre_new') }}">New Theatre</a></div>
+        </div>
+        <table class="ui very basic table">
+            <thead><th>ID</th><th>Name</th><th colspan="1"></th></thead>
+            {% for theatre in theatres %}
+                <tr>
+                    <td>{{ theatre.id }}</td>
+                    <td>{{ theatre.name }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
 {% endblock %}

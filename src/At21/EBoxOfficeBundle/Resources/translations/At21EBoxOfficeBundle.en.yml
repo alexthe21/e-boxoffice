@@ -1,4 +1,6 @@
 # Group
 admin:
     new_event:
-        submit: Actualizar grupo
+        submit: New Event
+    new_theatre:
+        submit: New Theatre

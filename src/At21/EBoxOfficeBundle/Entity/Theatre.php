@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Theatre
  *
  * @ORM\Table()
- * @ORM\Entity
+ * @ORM\Entity()
  */
 class Theatre
 {
@@ -20,6 +20,13 @@ class Theatre
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="name", type="string")
+     */
+    private $name;
 
     /**
      * @var integer
@@ -44,6 +51,28 @@ class Theatre
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * Get Name
+     *
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * Set Name
+     *
+     * @param string $name
+     * @return Theatre
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+        return $this;
     }
 
     /**

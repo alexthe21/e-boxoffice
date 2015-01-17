@@ -1,0 +1,42 @@
+{% extends "::base.html.twig" %}
+
+{% trans_default_domain 'At21EBoxOfficeBundle' %}
+
+{% block body %}
+    <div class="sixteen wide column">
+        <table class="ui definition table">
+            <thead>
+            <th colspan="1"></th>
+            {% for i in 1..theatre.numberOfSeatsPerRow %}
+                <th>{{ i }}</th>
+            {% endfor %}
+            </thead>
+        {% for seat in seats %}
+            {% if seat.columnNumber == 1 %}
+                <tr><td>{{ seat.rowNumber }}</td>
+            {% endif %}
+            {% if seat.isBusy %}
+                <td class="negative"><div>R: {{ seat.rowNumber }}</div><div>C: {{ seat.columnNumber }}</div></td>
+            {% else %}
+                <td class="positive"><div>R: {{ seat.rowNumber }}</div><div>C: {{ seat.columnNumber }}</div></td>
+            {% endif %}
+            {% if seat.columnNumber == theatre.numberOfSeatsPerRow %}
+                </tr>
+            {% endif %}
+        {% endfor %}
+        </table>
+    </div>
+{% endblock %}
+{#{% for seat in seats %}
+            {% if seat.columnNumber == 1 %}
+                <tr>
+            {% endif %}
+            {% if seat.isBusy %}
+                <td>NR: {{ seat.rowNumber }} C: {{ seat.columnNumber }}</td>
+            {% else %}
+                <td>PR: {{ seat.rowNumber }} C: {{ seat.columnNumber }}</td>
+            {% endif %}
+            {% if seat.columnNumber == theatre.numberOfSeatsPerRow %}
+                </tr>
+            {% endif %}
+        {% endfor %}#}
