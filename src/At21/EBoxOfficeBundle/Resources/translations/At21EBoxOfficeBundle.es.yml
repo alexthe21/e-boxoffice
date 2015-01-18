@@ -1,6 +1,0 @@
-# Group
-admin:
-    new_event:
-        submit: Nuevo Evento
-    new_theatre:
-        submit: Nuevo Teatro
