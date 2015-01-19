@@ -7,27 +7,27 @@ at21_eboxoffice_admin:
     defaults: { _controller: At21EBoxOfficeBundle:Admin:index }
 
 at21_eboxoffice_theatre_new:
-    path:     /theatre/new
+    path:     /admin/theatre/new
     defaults: { _controller: At21EBoxOfficeBundle:Theatre:newTheatre }
 
 at21_eboxoffice_theatre_update:
-    path:     /theatre/update/{id}
+    path:     /admin/theatre/update/{id}
     defaults: { _controller: At21EBoxOfficeBundle:Theatre:updateTheatre }
     requirements:
         id:  \d+
 
 at21_eboxoffice_theatre_delete:
-    path:     /theatre/delete/{id}
+    path:     /admin/theatre/delete/{id}
     defaults: { _controller: At21EBoxOfficeBundle:Theatre:deleteTheatre }
     requirements:
         id:  \d+
 
 at21_eboxoffice_event_new:
-    path:     /event/new
+    path:     /admin/event/new
     defaults: { _controller: At21EBoxOfficeBundle:Event:newEvent }
 
 at21_eboxoffice_event_update:
-    path:     /event/update/{id}
+    path:     /admin/event/update/{id}
     defaults: { _controller: At21EBoxOfficeBundle:Event:updateEvent }
     requirements:
         id:  \d+
@@ -39,7 +39,7 @@ at21_eboxoffice_event_check:
         id:  \d+
 
 at21_eboxoffice_event_delete:
-    path:     /event/delete/{id}
+    path:     /admin/event/delete/{id}
     defaults: { _controller: At21EBoxOfficeBundle:Event:deleteEvent }
     requirements:
         id:  \d+

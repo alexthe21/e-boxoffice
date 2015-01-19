@@ -4,11 +4,11 @@ services:
 #        arguments: [@service_id, "plain_value", %parameter%]
 
     #EventListeners
-    kernel.listener.security_listener:
-        class: At21\EBoxOfficeBundle\EventListener\SecurityListener
-        tags:
-            - { name: kernel.event_listener, event: security.interactive_login, method: onSecurityInteractiveLogin }
-        arguments: [@router, @security.context, @event_dispatcher]
+#    kernel.listener.security_listener:
+#        class: At21\EBoxOfficeBundle\EventListener\SecurityListener
+#        tags:
+#            - { name: kernel.event_listener, event: security.interactive_login, method: onSecurityInteractiveLogin }
+#        arguments: [@router, @security.context, @event_dispatcher]
 
     #Forms
     at21_eboxoffice.form.type.event:
