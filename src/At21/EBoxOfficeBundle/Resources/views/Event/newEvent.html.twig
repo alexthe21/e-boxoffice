@@ -5,7 +5,7 @@
 {% block body %}
     <div class="sixteen wide column">
         <form class="ui form" action="{{ path('at21_eboxoffice_event_new') }}" {{ form_enctype(form) }} method="POST" class="fos_user_profile_edit">
-            <h4 class="ui dividing header">New Event</h4>
+            <h4 class="ui dividing header">{{ 'event.new.header'|trans }}</h4>
             <div class="four fields">
                 <div class="ui input field">
                     {{ form_label(form.date) }}
@@ -16,13 +16,21 @@
                     {{ form_widget(form.title) }}
                 </div>
                 <div class="ui input field">
+                    {{ form_label(form.description) }}
+                    {{ form_widget(form.description) }}
+                </div>
+                <div class="ui input field">
+                    {{ form_label(form.price) }}
+                    {{ form_widget(form.price) }}
+                </div>
+                <div class="ui input field">
                     {{ form_label(form.theatre) }}
                     {{ form_widget(form.theatre) }}
                 </div>
                 {{ form_widget(form._token) }}
             </div>
             <div>
-                <input class="ui submit button" type="submit" value="{{ 'admin.new_event.submit'|trans }}" />
+                <input class="ui submit button" type="submit" value="{{ 'event.new.submit'|trans }}" />
             </div>
         </form>
     </div>

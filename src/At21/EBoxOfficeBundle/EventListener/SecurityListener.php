@@ -17,8 +17,6 @@ use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\Routing\Router;
 use Symfony\Component\Security\Core\SecurityContext;
 use Symfony\Component\Security\Http\Event\InteractiveLoginEvent;
-use FOS\UserBundle\FOSUserEvents;
-use FOS\UserBundle\Event\UserEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
@@ -45,7 +43,7 @@ class SecurityListener
         if ($this->security->isGranted('ROLE_ADMIN')) {
             $response = new RedirectResponse($this->router->generate('at21_eboxoffice_admin'));
         } elseif ($this->security->isGranted('ROLE_USER')) {
-            $response = new RedirectResponse($this->router->generate('fos_user_profile_edit'));
+            $response = new RedirectResponse($this->router->generate('at21_eboxoffice_user'));
         } else {
             $response = new RedirectResponse($this->router->generate('at21_eboxoffice_homepage'));
         }

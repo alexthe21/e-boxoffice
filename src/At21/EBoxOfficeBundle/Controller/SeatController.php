@@ -5,26 +5,50 @@ namespace At21\EBoxOfficeBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
-class TheatreController extends Controller
+class SeatController extends Controller
 {
-    public function newTheatreAction(Request $request)
+    /**
+     * @param $id
+     *
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
+    public function bookSeatAction($id)
     {
-        $theatre = $this->get('at21_eboxoffice_theatre');
-        $form = $this->createForm('theatre', $theatre);
-
-        $form->handleRequest($request);
-
-        if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($theatre);
-            $em->flush();
-
-            return $this->redirect($this->generateUrl('at21_eboxoffice_admin'));
-        }
-
-        return $this->render('At21EBoxOfficeBundle:Theatre:newTheatre.html.twig',
+        $seat = $this->getDoctrine()
+            ->getManager()
+            ->getRepository('At21EBoxOfficeBundle:Seat')
+            ->find($id);
+        $seat->setIsBusy(1);
+        $em = $this->getDoctrine()
+            ->getManager();
+        $em->persist($seat);
+        $em->flush();
+        return $this->render('At21EBoxOfficeBundle:Seat:bookSeat.html.twig',
             array(
-                'form' => $form->createView()
+                'seats' => $seat
+            )
+        );
+    }
+
+    /**
+     * @param $id
+     *
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
+    public function confirmAndPaySeatAction($id)
+    {
+        $seat = $this->getDoctrine()
+            ->getManager()
+            ->getRepository('At21EBoxOfficeBundle:Seat')
+            ->find($id);
+        $seat->setIsBusy(1);
+        $em = $this->getDoctrine()
+            ->getManager();
+        $em->persist($seat);
+        $em->flush();
+        return $this->render('At21EBoxOfficeBundle:Seat:bookSeat.html.twig',
+            array(
+                'seats' => $seat
             )
         );
     }

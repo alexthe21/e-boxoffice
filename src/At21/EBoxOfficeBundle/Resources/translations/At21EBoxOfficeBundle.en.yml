@@ -1,6 +1,43 @@
-# Group
 admin:
-    new_event:
-        submit: New Event
-    new_theatre:
-        submit: New Theatre
+    index:
+        event:
+            table:
+                headers:
+                    id: ID
+                    date: Date
+                    title: Title
+                    theatre: Theatre
+            action: Action
+            new:
+                link: New Event
+            update:
+                link: Update Event
+            delete:
+                link: Delete Event
+            check:
+                link: Check Availability
+        theatre:
+            table:
+                headers:
+                    id: ID
+                    name: Name
+                    capacity: Capacity
+            action: Action
+            new:
+                link: New Theatre
+            update:
+                link: Update Theatre
+            delete:
+                link: Delete Theatre
+event:
+    new:
+        header: New Event
+        submit: Create Event
+theatre:
+    new:
+        header: New Theatre
+        submit: Create Theatre
+seat:
+    book:
+        header: Seat Details
+        confirm&pay: Confirm & Pay

@@ -16,6 +16,20 @@ class EventRepository extends EntityRepository
      * @param integer $eventId
      * @return array
      */
+    /*public function getTheatre($eventId)
+    {
+        return $this->getEntityManager()
+            ->createQuery(
+                'SELECT e FROM At21EBoxOfficeBundle:Event e WHERE e.id = :eventId'
+            )
+            ->setParameter('eventId', $eventId)
+            ->getResult();
+    }*/
+
+    /**
+     * @param integer $eventId
+     * @return array
+     */
     public function getTheatre($eventId)
     {
         return $this->getEntityManager()

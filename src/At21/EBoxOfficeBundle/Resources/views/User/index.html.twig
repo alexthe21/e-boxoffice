@@ -1,0 +1,15 @@
+{% extends "::base.html.twig" %}
+
+{% trans_default_domain 'At21EBoxOfficeBundle' %}
+
+{% block body %}
+    {% for event in events %}
+        <div class="four wide column">
+            <div class="ui segment">
+                <h4 class="ui header">{{ event.title }}</h4>
+                <p>{{ event.description }}</p>
+                <h6>{{ event.price }}</h6>
+            </div>
+        </div>
+    {% endfor %}
+{% endblock %}

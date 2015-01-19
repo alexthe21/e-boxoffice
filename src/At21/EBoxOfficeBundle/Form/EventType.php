@@ -23,6 +23,10 @@ class EventType extends AbstractType
                 'html5' => true
             ))
             ->add('title', 'text')
+            ->add('description', 'text')
+            ->add('price', 'money', array(
+                'currency' =>'GBP'
+            ))
             ->add('theatre', 'entity', array(
                 'class' => 'At21EBoxOfficeBundle:Theatre',
                 'property' => 'name',

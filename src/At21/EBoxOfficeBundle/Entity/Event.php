@@ -23,6 +23,12 @@ class Event
     private $id;
 
     /**
+     * @ORM\Version
+     * @ORM\Column(type="datetime")
+     */
+    private $version;
+
+    /**
      * @var \DateTime
      *
      * @ORM\Column(name="date", type="datetime")
@@ -37,6 +43,20 @@ class Event
     private $title;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="description", type="string", nullable=false)
+     */
+    private $description;
+
+    /**
+     * @var double
+     *
+     * @ORM\Column(name="price", type="decimal", precision=6, scale=2)
+     */
+    private $price;
+
+    /**
      * @var Theatre
      *
      * @ORM\ManyToOne(targetEntity="Theatre")
@@ -46,7 +66,7 @@ class Event
     /**
      * @var ArrayCollection
      *
-     * @ORM\OneToMany(targetEntity="Seat", mappedBy="event", cascade={"persist"})
+     * @ORM\OneToMany(targetEntity="Seat", mappedBy="event", cascade={"persist", "remove"})
      */
     private $seats;
 
@@ -71,6 +91,29 @@ class Event
     }
 
     /**
+     * Get Version
+     *
+     * @return mixed
+     */
+    public function getVersion()
+    {
+        return $this->version;
+    }
+
+    /**
+     * Set Version
+     *
+     * @param mixed $version
+     * @return Event
+     */
+    public function setVersion($version)
+    {
+        $this->version = $version;
+
+        return  $this;
+    }
+
+    /**
      * Get title
      *
      * @return string
@@ -88,6 +131,50 @@ class Event
     public function setTitle($title)
     {
         $this->title = $title;
+    }
+
+    /**
+     * Get Description
+     *
+     * @return string
+     */
+    public function getDescription()
+    {
+        return $this->description;
+    }
+
+    /**
+     * Set Description
+     *
+     * @param string $description
+     * @return Event
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
+        return $this;
+    }
+
+    /**
+     * Get Price
+     *
+     * @return double
+     */
+    public function getPrice()
+    {
+        return $this->price;
+    }
+
+    /**
+     * Set Price
+     *
+     * @param double $price
+     * @return Event
+     */
+    public function setPrice($price)
+    {
+        $this->price = $price;
+        return $this;
     }
 
     /**

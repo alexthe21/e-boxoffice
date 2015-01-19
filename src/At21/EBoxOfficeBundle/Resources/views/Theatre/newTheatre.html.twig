@@ -1,11 +1,11 @@
-{% extends "::base.html.twig" %}
+{% extends "At21EBoxOfficeBundle::layout.html.twig" %}
 
 {% trans_default_domain 'At21EBoxOfficeBundle' %}
 
 {% block body %}
     <div class="sixteen wide column">
         <form class="ui form" action="{{ path('at21_eboxoffice_theatre_new') }}" {{ form_enctype(form) }} method="POST" class="fos_user_profile_edit">
-            <h4 class="ui dividing header">New Theatre</h4>
+            <h4 class="ui dividing header">{{ 'theatre.new.header'|trans }}</h4>
             <div class="four fields">
                 <div class="ui input field">
                     {{ form_label(form.numberOfRows) }}
@@ -22,7 +22,7 @@
                 {{ form_widget(form._token) }}
             </div>
             <div>
-                <input class="ui submit button" type="submit" value="{{ 'admin.new_theatre.submit'|trans }}" />
+                <input class="ui submit button" type="submit" value="{{ 'theatre.new.submit'|trans }}" />
             </div>
         </form>
     </div>

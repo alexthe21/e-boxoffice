@@ -1,45 +1,79 @@
 {% extends "::base.html.twig" %}
 
+{% trans_default_domain 'At21EBoxOfficeBundle' %}
+
 {% block body %}
-    <div class="eight wide column">
-        <div class="ui list">
-            <div class="item"><a href="{{ path('at21_eboxoffice_event_new') }}">New Event</a></div>
+    <div class="ten wide column">
+        <div class="ui grid">
+            <div class="sixteen wide column">
+                <a class="ui button" href="{{ path('at21_eboxoffice_event_new') }}">{{ 'admin.index.event.new.link'|trans }}</a>
+            </div>
+            <div class="sixteen wide column">
+                <table class="ui very basic table">
+                    <thead>
+                        <th>{{ 'admin.index.event.table.headers.id'|trans }}</th>
+                        <th>{{ 'admin.index.event.table.headers.date'|trans }}</th>
+                        <th>{{ 'admin.index.event.table.headers.title'|trans }}</th>
+                        <th>{{ 'admin.index.event.table.headers.theatre'|trans }}</th>
+                        <th colspan="1"></th>
+                    </thead>
+                    {% for event in events %}
+                        <tr>
+                            <td>{{ event.id }}</td>
+                            <td>{{ event.date|date('Y-m-d H:i:s') }}</td>
+                            <td>{{ event.title }}</td>
+                            <td>{{ event.theatre.name }}</td>
+                            <td class="right aligned">
+                                <div class="ui dropdown">
+                                    {{ 'admin.index.event.action'|trans }}
+                                    <i class="dropdown icon"></i>
+                                    <div class="menu">
+                                        <a href="{{ path('at21_eboxoffice_event_update', {'id': event.id}) }}" class="item">{{ 'admin.index.event.update.link'|trans }}</a>
+                                        <a href="{{ path('at21_eboxoffice_event_check', {'id': event.id}) }}" class="item">{{ 'admin.index.event.check.link'|trans }}</a>
+                                        <div class="divider"></div>
+                                        <a href="{{ path('at21_eboxoffice_event_delete', {'id': event.id}) }}" class="item">{{ 'admin.index.event.delete.link'|trans }}</a>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            </div>
         </div>
-        <table class="ui very basic table">
-            <thead><th>ID</th><th>Date</th><th>Title</th><th>Theatre</th><th colspan="1"></th></thead>
-            {% for event in events %}
-                <tr>
-                    <td>{{ event.id }}</td>
-                    <td>{{ event.date|date('Y-m-d H:i:s') }}</td>
-                    <td>{{ event.title }}</td>
-                    <td>{{ event.theatre.name }}</td>
-                    <td>
-                        <div class="ui dropdown">
-                            <div class="text">Action</div>
-                            <i class="dropdown icon"></i>
-                            <div class="menu">
-                                <a href="{{ path('at21_eboxoffice_event_check', {'id': event.id}) }}"class="item">Check Availability</a>
-                                <div class="divider"></div>
-                                <a href="{{ path('at21_eboxoffice_event_delete', {'id': event.id}) }}" class="item">Delete</a>
-                            </div>
-                        </div>
-                    </td>
-                </tr>
-            {% endfor %}
-        </table>
     </div>
-    <div class="eight wide column">
-        <div class="ui list">
-            <div class="item"><a href="{{ path('at21_eboxoffice_theatre_new') }}">New Theatre</a></div>
+    <div class="six wide column">
+        <div class="ui grid">
+            <div class="sixteen wide column">
+                <a class="ui button" href="{{ path('at21_eboxoffice_theatre_new') }}">{{ 'admin.index.theatre.new.link'|trans }}</a>
+            </div>
+            <div class="sixteen wide column">
+                <table class="ui very basic table">
+                    <thead>
+                        <th>{{ 'admin.index.theatre.table.headers.id'|trans }}</th>
+                        <th>{{ 'admin.index.theatre.table.headers.name'|trans }}</th>
+                        <th>{{ 'admin.index.theatre.table.headers.capacity'|trans }}</th>
+                        <th colspan="1"></th>
+                    </thead>
+                    {% for theatre in theatres %}
+                        <tr>
+                            <td>{{ theatre.id }}</td>
+                            <td>{{ theatre.name }}</td>
+                            <td>{{ theatre.numberOfRows * theatre.numberOfSeatsPerRow }}</td>
+                            <td class="right aligned">
+                                <div class="ui dropdown">
+                                    {{ 'admin.index.event.action'|trans }}
+                                    <i class="dropdown icon"></i>
+                                    <div class="menu">
+                                        <a href="{{ path('at21_eboxoffice_theatre_update', {'id': theatre.id}) }}" class="item">{{ 'admin.index.theatre.update.link'|trans }}</a>
+                                        <div class="divider"></div>
+                                        <a href="{{ path('at21_eboxoffice_theatre_delete', {'id': theatre.id}) }}" class="disabled item">{{ 'admin.index.theatre.delete.link'|trans }}</a>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            </div>
         </div>
-        <table class="ui very basic table">
-            <thead><th>ID</th><th>Name</th><th colspan="1"></th></thead>
-            {% for theatre in theatres %}
-                <tr>
-                    <td>{{ theatre.id }}</td>
-                    <td>{{ theatre.name }}</td>
-                </tr>
-            {% endfor %}
-        </table>
     </div>
 {% endblock %}

@@ -3,31 +3,16 @@
 {% trans_default_domain 'At21EBoxOfficeBundle' %}
 
 {% block body %}
-    <div class="sixteen wide column">
-        <table class="ui definition table">
-            <thead>
-                <tr>
-                    <th colspan="1"></th>
-                    {% for i in 1..theatre.numberOfSeatsPerRow %}
-                        <th>{{ i }}</th>
-                    {% endfor %}
-                </tr>
-            </thead>
-        {% for seat in seats %}
-            {% if seat.columnNumber == 1 %}
-                <tr><td>{{ seat.rowNumber }}</td>
-            {% endif %}
-            {% if seat.isBusy %}
-                <td class="negative"><a href="{{ path('at21_eboxoffice_seat_book') }}"><div>R: {{ seat.rowNumber }}</div><div>C: {{ seat.columnNumber }}</div></a></td>
-            {% else %}
-                <td class="positive"><div>R: {{ seat.rowNumber }}</div><div>C: {{ seat.columnNumber }}</div></td>
-            {% endif %}
-            {% if seat.columnNumber == theatre.numberOfSeatsPerRow %}
-                </tr>
-            {% endif %}
-        {% endfor %}
-        </table>
-    </div>
+    {% for seat in seats %}
+        <div class="four wide column">
+            <div class="ui segment">
+                <h4 class="header">{{ 'seat.book.header'|trans }}:</h4>
+                <p>Row: {{ seat.rowNumber }}</p>
+                <p>Column: {{ seat.columnNumber }}</p>
+                <a href="{{ path('at21_eboxoffice_seat_confirm&pay') }}" class="ui button">{{ 'seat.book.confirm&pay'|trans }}</a>
+            </div>
+        </div>
+    {% endfor %}
 {% endblock %}
 {% block javascripts %}
     <script src="{{ asset('bundles/at21eboxoffice/js/checkEvent.js') }}" type="text/javascript" ></script>

@@ -3,24 +3,59 @@ at21_eboxoffice_homepage:
     defaults: { _controller: At21EBoxOfficeBundle:Default:index }
 
 at21_eboxoffice_admin:
-    path:     /admin/
+    path:     /admin
     defaults: { _controller: At21EBoxOfficeBundle:Admin:index }
-
-at21_eboxoffice_event_new:
-    path:     /event/new
-    defaults: { _controller: At21EBoxOfficeBundle:Event:newEvent }
-
-at21_eboxoffice_event_check:
-    path:     /event/check/{id}
-    defaults: { _controller: At21EBoxOfficeBundle:Event:checkEvent }
-
-at21_eboxoffice_event_delete:
-    path:     /event/delete/{id}
-    defaults: { _controller: At21EBoxOfficeBundle:Event:deleteEvent }
-
 
 at21_eboxoffice_theatre_new:
     path:     /theatre/new
     defaults: { _controller: At21EBoxOfficeBundle:Theatre:newTheatre }
 
+at21_eboxoffice_theatre_update:
+    path:     /theatre/update/{id}
+    defaults: { _controller: At21EBoxOfficeBundle:Theatre:updateTheatre }
+    requirements:
+        id:  \d+
 
+at21_eboxoffice_theatre_delete:
+    path:     /theatre/delete/{id}
+    defaults: { _controller: At21EBoxOfficeBundle:Theatre:deleteTheatre }
+    requirements:
+        id:  \d+
+
+at21_eboxoffice_event_new:
+    path:     /event/new
+    defaults: { _controller: At21EBoxOfficeBundle:Event:newEvent }
+
+at21_eboxoffice_event_update:
+    path:     /event/update/{id}
+    defaults: { _controller: At21EBoxOfficeBundle:Event:updateEvent }
+    requirements:
+        id:  \d+
+
+at21_eboxoffice_event_check:
+    path:     /event/check/{id}
+    defaults: { _controller: At21EBoxOfficeBundle:Event:checkEvent }
+    requirements:
+        id:  \d+
+
+at21_eboxoffice_event_delete:
+    path:     /event/delete/{id}
+    defaults: { _controller: At21EBoxOfficeBundle:Event:deleteEvent }
+    requirements:
+        id:  \d+
+
+at21_eboxoffice_seat_book:
+    path:     /seat/book/{id}
+    defaults: { _controller: At21EBoxOfficeBundle:Seat:bookSeat }
+    requirements:
+        id:  \d+
+
+at21_eboxoffice_seat_confirm&pay:
+    path:     /seat/confirmAndPay/{id}
+    defaults: { _controller: At21EBoxOfficeBundle:Seat:confirmAndPaySeat }
+    requirements:
+        id:  \d+
+
+at21_eboxoffice_user:
+    path:     /user
+    defaults: { _controller: At21EBoxOfficeBundle:User:index }
