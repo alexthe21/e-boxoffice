@@ -41,3 +41,8 @@ seat:
     book:
         header: Seat Details
         confirm&pay: Confirm & Pay
+
+user:
+    event:
+        in: In
+        price: Price

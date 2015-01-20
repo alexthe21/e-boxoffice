@@ -155,6 +155,7 @@ class Event
     public function setDescription($description)
     {
         $this->description = $description;
+
         return $this;
     }
 
@@ -177,6 +178,7 @@ class Event
     public function setPrice($price)
     {
         $this->price = $price;
+
         return $this;
     }
 
@@ -261,6 +263,7 @@ class Event
     public function setSeats($seats)
     {
         $this->seats->add($seats);
+
         return $this;
     }
 
@@ -276,6 +279,7 @@ class Event
             return;
         }
         $this->seats->add($seat);
-        $seat->addEvent($this);
+
+        return $this;
     }
 }

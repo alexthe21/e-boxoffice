@@ -39,6 +39,8 @@ class User extends BaseUser
     }
 
     /**
+     * Get Seats
+     *
      * @return ArrayCollection
      */
     public function getSeats()
@@ -47,11 +49,16 @@ class User extends BaseUser
     }
 
     /**
+     * Set Seats
+     *
      * @param ArrayCollection $seats
+     * @return User
      */
     public function setSeats($seats)
     {
         $this->seats = $seats;
+
+        return $this;
     }
 
 

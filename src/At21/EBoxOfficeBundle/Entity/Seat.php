@@ -169,7 +169,6 @@ class Seat
     public function setEvent($event)
     {
         $this->event = $event;
-        $event->addSet($this);
 
         return $this;
     }
@@ -183,7 +182,7 @@ class Seat
     public function setUser($user)
     {
         $this->user = $user;
-        
+
         return $this;
     }
 }

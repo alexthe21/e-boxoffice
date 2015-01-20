@@ -6,9 +6,10 @@
     {% for event in events %}
         <div class="four wide column">
             <div class="ui segment">
-                <h4 class="ui header">{{ event.title }}</h4>
+                <h2 class="ui header">{{ event.title }}</h2>
+                <h5 class="ui header">{{ 'user.event.in'|trans }} {{ event.theatre.name }}</h5>
                 <p>{{ event.description }}</p>
-                <h5>£{{ event.price }}</h5>
+                <h5>{{ 'user.event.price'|trans }}: £{{ event.price }}</h5>
             </div>
         </div>
     {% endfor %}
