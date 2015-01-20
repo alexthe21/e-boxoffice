@@ -10,22 +10,18 @@ namespace At21\EBoxOfficeBundle\DataFixtures\ORM;
 
 use Doctrine\Common\DataFixtures\FixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
-use At21\EBoxOfficeBundle\Entity\User;
+use At21\EBoxOfficeBundle\Entity\Theatre;
 
-class LoadUserData implements FixtureInterface
+class InitializeData implements FixtureInterface
 {
     /**
      * {@inheritDoc}
      */
     public function load(ObjectManager $manager)
     {
-        $userAdmin = new User();
-        $userAdmin->setUsername('admin');
-        $userAdmin->setEmail('admin@email.com');
-        $userAdmin->setPassword('admin');
-        $userAdmin->setEnabled(true);
+        $theatre = new Theatre();
 
-        $manager->persist($userAdmin);
+        $manager->persist($theatre);
         $manager->flush();
     }
 }
