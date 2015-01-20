@@ -3,13 +3,11 @@
 {% trans_default_domain 'At21EBoxOfficeBundle' %}
 
 {% block body %}
-    {% for event in events %}
+    {% for play in plays %}
         <div class="four wide column">
             <div class="ui segment">
-                <h2 class="ui header">{{ event.title }}</h2>
-                <h5 class="ui header">{{ 'user.event.in'|trans }} {{ event.theatre.name }}</h5>
-                <p>{{ event.description }}</p>
-                <h5>{{ 'user.event.price'|trans }}: £{{ event.price }}</h5>
+                <h2 class="ui header">{{ play.title }}</h2>
+                <p>{{ play.description }}</p>
             </div>
         </div>
     {% endfor %}

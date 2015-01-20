@@ -6,32 +6,32 @@
     <div class="ten wide column">
         <div class="ui grid">
             <div class="sixteen wide column">
-                <a class="ui button" href="{{ path('at21_eboxoffice_event_new') }}">{{ 'admin.index.event.new.link'|trans }}</a>
+                <a class="ui button" href="{{ path('at21_eboxoffice_play_new') }}">{{ 'admin.index.play.new.link'|trans }}</a>
             </div>
             <div class="sixteen wide column">
                 <table class="ui very basic table">
                     <thead>
-                        <th>{{ 'admin.index.event.table.headers.id'|trans }}</th>
-                        <th>{{ 'admin.index.event.table.headers.date'|trans }}</th>
-                        <th>{{ 'admin.index.event.table.headers.title'|trans }}</th>
-                        <th>{{ 'admin.index.event.table.headers.theatre'|trans }}</th>
+                        <th>{{ 'admin.index.play.table.headers.id'|trans }}</th>
+                        <th>{{ 'admin.index.play.table.headers.fromDate'|trans }}</th>
+                        <th>{{ 'admin.index.play.table.headers.toDate'|trans }}</th>
+                        <th>{{ 'admin.index.play.table.headers.title'|trans }}</th>
                         <th colspan="1"></th>
                     </thead>
-                    {% for event in events %}
+                    {% for play in plays %}
                         <tr>
-                            <td>{{ event.id }}</td>
-                            <td>{{ event.date|date('Y-m-d H:i:s') }}</td>
-                            <td>{{ event.title }}</td>
-                            <td>{{ event.theatre.name }}</td>
+                            <td>{{ play.id }}</td>
+                            <td>{{ play.fromDate|date('Y-m-d') }}</td>
+                            <td>{{ play.toDate|date('Y-m-d') }}</td>
+                            <td>{{ play.title }}</td>
                             <td class="right aligned">
                                 <div class="ui dropdown">
-                                    {{ 'admin.index.event.action'|trans }}
+                                    {{ 'admin.index.play.action'|trans }}
                                     <i class="dropdown icon"></i>
                                     <div class="menu">
-                                        <a href="{{ path('at21_eboxoffice_event_update', {'id': event.id}) }}" class="item">{{ 'admin.index.event.update.link'|trans }}</a>
-                                        <a href="{{ path('at21_eboxoffice_event_check', {'id': event.id}) }}" class="item">{{ 'admin.index.event.check.link'|trans }}</a>
+                                        <a href="{{ path('at21_eboxoffice_play_update', {'id': play.id}) }}" class="item">{{ 'admin.index.play.update.link'|trans }}</a>
+                                        <a href="{{ path('at21_eboxoffice_play_check', {'id': play.id}) }}" class="item">{{ 'admin.index.play.check.link'|trans }}</a>
                                         <div class="divider"></div>
-                                        <a href="{{ path('at21_eboxoffice_event_delete', {'id': event.id}) }}" class="item">{{ 'admin.index.event.delete.link'|trans }}</a>
+                                        <a href="{{ path('at21_eboxoffice_play_delete', {'id': play.id}) }}" class="item">{{ 'admin.index.play.delete.link'|trans }}</a>
                                     </div>
                                 </div>
                             </td>
@@ -61,7 +61,7 @@
                             <td>{{ theatre.numberOfRows * theatre.numberOfSeatsPerRow }}</td>
                             <td class="right aligned">
                                 <div class="ui dropdown">
-                                    {{ 'admin.index.event.action'|trans }}
+                                    {{ 'admin.index.play.action'|trans }}
                                     <i class="dropdown icon"></i>
                                     <div class="menu">
                                         <a href="{{ path('at21_eboxoffice_theatre_update', {'id': theatre.id}) }}" class="item">{{ 'admin.index.theatre.update.link'|trans }}</a>

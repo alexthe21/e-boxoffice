@@ -1,21 +1,21 @@
 admin:
     index:
-        event:
+        play:
             table:
                 headers:
                     id: ID
-                    date: Date
+                    fromDate: From
+                    toDate: To
                     title: Title
-                    theatre: Theatre
             action: Action
             new:
-                link: New Event
+                link: New Play
             update:
-                link: Update Event
+                link: Update Play
             delete:
-                link: Delete Event
+                link: Delete Play
             check:
-                link: Check Availability
+                link: Check Sessions
         theatre:
             table:
                 headers:
@@ -29,10 +29,14 @@ admin:
                 link: Update Theatre
             delete:
                 link: Delete Theatre
-event:
+play:
     new:
-        header: New Event
-        submit: Create Event
+        header: New Play
+        submit: Create Play
+session:
+    new:
+        header: New Session
+        submit: Create Session
 theatre:
     new:
         header: New Theatre
@@ -43,6 +47,6 @@ seat:
         confirm&pay: Confirm & Pay
 
 user:
-    event:
+    play:
         in: In
         price: Price

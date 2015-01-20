@@ -12,20 +12,23 @@ namespace At21\EBoxOfficeBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 
-class EventType extends AbstractType
+class SessionType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
             ->add('date', 'datetime', array(
-                'date_widget' => 'single_text',
-                'time_widget' => 'single_text',
-                'html5' => true
+                /*'format' => 'yyyy-MM-dd H:i:s',*/
+                'widget' => 'single_text',
+                'html5' => true,
             ))
-            ->add('title', 'text')
-            ->add('description', 'text')
             ->add('price', 'money', array(
                 'currency' =>'GBP'
+            ))
+            ->add('play', 'entity', array(
+                'class' => 'At21EBoxOfficeBundle:Play',
+                'property' => 'title',
+                'disabled' => true,
             ))
             ->add('theatre', 'entity', array(
                 'class' => 'At21EBoxOfficeBundle:Theatre',
@@ -37,6 +40,6 @@ class EventType extends AbstractType
 
     public function getName()
     {
-        return 'event';
+        return 'session';
     }
 }

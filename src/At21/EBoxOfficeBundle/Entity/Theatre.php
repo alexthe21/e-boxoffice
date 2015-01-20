@@ -53,7 +53,7 @@ class Theatre
     }
 
     /**
-     * Get Name
+     * Get name
      *
      * @return string
      */
@@ -63,7 +63,7 @@ class Theatre
     }
 
     /**
-     * Set Name
+     * Set name
      *
      * @param string $name
      * @return Theatre

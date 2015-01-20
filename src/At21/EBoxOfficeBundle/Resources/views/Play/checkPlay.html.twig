@@ -1,0 +1,18 @@
+{% extends "::base.html.twig" %}
+
+{% trans_default_domain 'At21EBoxOfficeBundle' %}
+
+{% block body %}
+    <div class="sixteen wide column">
+    <a href="{{ path('at21_eboxoffice_session_new', {'id': play.id}) }}" class="ui button">{{ 'session.new.header'|trans }}</a>
+    {% for session in sessions %}
+        <div class="ui segment">
+            <p>{{ session.date|date("m/d/Y H:i:s") }}</p>
+            <p>{{ session.theatre.name }}</p>
+        </div>
+    {% endfor %}
+    </div>
+{% endblock %}
+{% block javascripts %}
+    <script src="{{ asset('bundles/at21eboxoffice/js/checkEvent.js') }}" type="text/javascript" ></script>
+{% endblock %}

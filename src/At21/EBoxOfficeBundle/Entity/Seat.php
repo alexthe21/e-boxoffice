@@ -22,6 +22,12 @@ class Seat
     private $id;
 
     /**
+     * @ORM\Version
+     * @ORM\Column(type="datetime")
+     */
+    private $version;
+
+    /**
      * @var boolean
      *
      * @ORM\Column(name="isBusy", type="boolean")
@@ -43,29 +49,30 @@ class Seat
     private $columnNumber;
 
     /**
-     * @var Event
+     * @var Session
      *
-     * @ORM\ManyToOne(targetEntity="Event", inversedBy="seats", cascade={"persist", "remove"})
+     * @ORM\ManyToOne(targetEntity="Session", inversedBy="seats")
      */
-    private $event;
+    private $session;
 
     /**
      * @var User
      *
-     * @ORM\ManyToOne(targetEntity="User", inversedBy="seats", cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="seats")
      */
     private $user;
 
     /**
      * Construct
      *
+     * @param Session $session
      * @param boolean $isBusy
      * @param integer $rowNumber
      * @param integer $columnNumber
      */
-    public function __construct($event, $isBusy, $rowNumber, $columnNumber)
+    public function __construct($session, $isBusy, $rowNumber, $columnNumber)
     {
-        $this->event = $event;
+        $this->session = $session;
         $this->isBusy = $isBusy;
         $this->rowNumber = $rowNumber;
         $this->columnNumber = $columnNumber;
@@ -79,6 +86,29 @@ class Seat
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * Get version
+     *
+     * @return mixed
+     */
+    public function getVersion()
+    {
+        return $this->version;
+    }
+
+    /**
+     * Set version
+     *
+     * @param mixed $version
+     * @return Seat
+     */
+    public function setVersion($version)
+    {
+        $this->version = $version;
+
+        return $this;
     }
 
     /**
@@ -105,7 +135,7 @@ class Seat
     }
 
     /**
-     * Get ColumnNumber
+     * Get columnNumber
      *
      * @return int
      */
@@ -115,7 +145,7 @@ class Seat
     }
 
     /**
-     * Set RowNumber
+     * Set rowNumber
      *
      * @param int $rowNumber
      * @return Seat
@@ -128,7 +158,7 @@ class Seat
     }
 
     /**
-     * Get ColumnNumber
+     * Get columnNumber
      *
      * @return int
      */
@@ -138,7 +168,7 @@ class Seat
     }
 
     /**
-     * Set ColumnNumber
+     * Set columnNumber
      *
      * @param int $columnNumber
      * @return Seat
@@ -151,30 +181,40 @@ class Seat
     }
 
     /**
-     * Set Event
+     * Set session
      *
-     * @return Event
+     * @return Session
      */
-    public function getEvent()
+    public function getSession()
     {
-        return $this->event;
+        return $this->session;
     }
 
     /**
-     * Set event
+     * Set session
      *
-     * @param Event $event
+     * @param Session $session
      * @return Seat
      */
-    public function setEvent($event)
+    public function setSession($session)
     {
-        $this->event = $event;
+        $this->session = $session;
 
         return $this;
     }
 
     /**
-     * Set User
+     * Get user
+     *
+     * @return User
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
+
+    /**
+     * Set user
      *
      * @param User $user
      * @return Seat

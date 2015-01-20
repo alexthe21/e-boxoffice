@@ -4,20 +4,17 @@
 
 {% block body %}
     <div class="sixteen wide column">
-        <form class="ui form" action="{{ path('at21_eboxoffice_event_new') }}" {{ form_enctype(form) }} method="POST" class="fos_user_profile_edit">
-            <h4 class="ui dividing header">{{ 'event.new.header'|trans }}</h4>
+        <form class="ui form" action="{{ path('at21_eboxoffice_session_new', {'id': play.id }) }}" {{ form_enctype(form) }} method="post">
+            <h4 class="ui dividing header">{{ 'play.new.header'|trans }}</h4>
+            <input type="hidden" >
             <div class="four fields">
+                <div class="ui input field">
+                    {{ form_label(form.play) }}
+                    {{ form_widget(form.play) }}
+                </div>
                 <div class="ui input field">
                     {{ form_label(form.date) }}
                     {{ form_widget(form.date) }}
-                </div>
-                <div class="ui input field">
-                    {{ form_label(form.title) }}
-                    {{ form_widget(form.title) }}
-                </div>
-                <div class="ui input field">
-                    {{ form_label(form.description) }}
-                    {{ form_widget(form.description) }}
                 </div>
                 <div class="ui input field">
                     {{ form_label(form.price) }}
@@ -30,7 +27,7 @@
                 {{ form_widget(form._token) }}
             </div>
             <div>
-                <input class="ui submit button" type="submit" value="{{ 'event.new.submit'|trans }}" />
+                <input class="ui submit button" type="submit" value="{{ 'play.new.submit'|trans }}" />
             </div>
         </form>
     </div>

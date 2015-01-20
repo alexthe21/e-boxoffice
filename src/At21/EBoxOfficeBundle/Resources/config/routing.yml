@@ -22,28 +22,52 @@ at21_eboxoffice_theatre_delete:
     requirements:
         id:  \d+
 
-at21_eboxoffice_event_new:
-    path:     /admin/event/new
-    defaults: { _controller: At21EBoxOfficeBundle:Event:newEvent }
+at21_eboxoffice_play_new:
+    path:     /admin/play/new
+    defaults: { _controller: At21EBoxOfficeBundle:Play:newPlay }
 
-at21_eboxoffice_event_update:
-    path:     /admin/event/update/{id}
-    defaults: { _controller: At21EBoxOfficeBundle:Event:updateEvent }
+at21_eboxoffice_play_update:
+    path:     /admin/play/update/{id}
+    defaults: { _controller: At21EBoxOfficeBundle:Play:updatePlay }
     requirements:
         id:  \d+
 
-at21_eboxoffice_event_check:
-    path:     /event/check/{id}
-    defaults: { _controller: At21EBoxOfficeBundle:Event:checkEvent }
+at21_eboxoffice_play_check:
+    path:     /play/check/{id}
+    defaults: { _controller: At21EBoxOfficeBundle:Play:checkPlay }
     requirements:
         id:  \d+
 
-at21_eboxoffice_event_delete:
-    path:     /admin/event/delete/{id}
-    defaults: { _controller: At21EBoxOfficeBundle:Event:deleteEvent }
+at21_eboxoffice_play_delete:
+    path:     /admin/play/delete/{id}
+    defaults: { _controller: At21EBoxOfficeBundle:Play:deletePlay }
+    requirements:
+        id:  \d+
+        
+at21_eboxoffice_session_new:
+    path:     /admin/play/{id}/session/new
+    defaults: { _controller: At21EBoxOfficeBundle:Session:newSession }
     requirements:
         id:  \d+
 
+at21_eboxoffice_session_update:
+    path:     /admin/session/update/{id}
+    defaults: { _controller: At21EBoxOfficeBundle:Session:updateSession }
+    requirements:
+        id:  \d+
+
+at21_eboxoffice_session_check:
+    path:     /session/check/{id}
+    defaults: { _controller: At21EBoxOfficeBundle:Session:checkSession }
+    requirements:
+        id:  \d+
+
+at21_eboxoffice_session_delete:
+    path:     /admin/session/delete/{id}
+    defaults: { _controller: At21EBoxOfficeBundle:Session:deleteSession }
+    requirements:
+        id:  \d+
+        
 at21_eboxoffice_seat_book:
     path:     /seat/book/{id}
     defaults: { _controller: At21EBoxOfficeBundle:Seat:bookSeat }

@@ -1,0 +1,35 @@
+{% extends "::base.html.twig" %}
+
+{% trans_default_domain 'At21EBoxOfficeBundle' %}
+
+{% block body %}
+    <div class="sixteen wide column">
+        <form class="ui form" action="{{ path('at21_eboxoffice_play_new') }}" {{ form_enctype(form) }} method="post">
+            <h4 class="ui dividing header">{{ 'play.new.header'|trans }}</h4>
+            <div class="three fields">
+                <div class="ui input field">
+                    {{ form_label(form.fromDate) }}
+                    {{ form_widget(form.fromDate) }}
+                </div>
+                <div class="ui input field">
+                    {{ form_label(form.toDate) }}
+                    {{ form_widget(form.toDate) }}
+                </div>
+                <div class="ui input field">
+                    {{ form_label(form.title) }}
+                    {{ form_widget(form.title) }}
+                </div>
+            </div>
+            <div class="one field">
+                <div class="ui input field">
+                    {{ form_label(form.description) }}
+                    {{ form_widget(form.description) }}
+                </div>
+                {{ form_widget(form._token) }}
+            </div>
+            <div>
+                <input class="ui submit button" type="submit" value="{{ 'play.new.submit'|trans }}" />
+            </div>
+        </form>
+    </div>
+{% endblock %}

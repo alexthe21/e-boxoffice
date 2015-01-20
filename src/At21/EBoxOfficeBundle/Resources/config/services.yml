@@ -11,21 +11,35 @@ services:
 #        arguments: [@router, @security.context, @event_dispatcher]
 
     #Forms
-    at21_eboxoffice.form.type.event:
-        class: At21\EBoxOfficeBundle\Form\EventType
+    at21_eboxoffice.form.type.play:
+        class: At21\EBoxOfficeBundle\Form\PlayType
         tags:
-            - { name: form.type, alias: event }
+            - { name: form.type, alias: play }
 
     at21_eboxoffice.form.type.theatre:
         class: At21\EBoxOfficeBundle\Form\TheatreType
         tags:
             - { name: form.type, alias: theatre }
 
+    at21_eboxoffice.form.type.session:
+        class: At21\EBoxOfficeBundle\Form\SessionType
+        tags:
+            - { name: form.type, alias: session }
+
     #Classes
-    at21_eboxoffice_event:
-        class: At21\EBoxOfficeBundle\Entity\Event
+    at21_eboxoffice_play:
+        class: At21\EBoxOfficeBundle\Entity\Play
         arguments: []
 
     at21_eboxoffice_theatre:
         class: At21\EBoxOfficeBundle\Entity\Theatre
         arguments: []
+
+    at21_eboxoffice_session:
+        class: At21\EBoxOfficeBundle\Entity\Session
+        arguments: []
+
+    at21_eboxoffice_seat:
+        class: At21\EBoxOfficeBundle\Entity\Seat
+        arguments: []
+

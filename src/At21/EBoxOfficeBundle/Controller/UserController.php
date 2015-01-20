@@ -9,15 +9,12 @@ class UserController extends Controller
 {
     public function indexAction()
     {
-        $events = $this->getDoctrine()
-            ->getRepository('At21EBoxOfficeBundle:Event')
-            ->findAll();
-        $theatres = $this->getDoctrine()
-            ->getRepository('At21EBoxOfficeBundle:Theatre')
+        $plays = $this->getDoctrine()
+            ->getRepository('At21EBoxOfficeBundle:Play')
             ->findAll();
         return $this->render('At21EBoxOfficeBundle:User:index.html.twig',
             array(
-                'events' => $events
+                'plays' => $plays
             )
         );
     }

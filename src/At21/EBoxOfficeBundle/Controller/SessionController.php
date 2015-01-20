@@ -5,34 +5,38 @@ namespace At21\EBoxOfficeBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
-class EventController extends Controller
+class SessionController extends Controller
 {
 
     /**
+     * @param integer $id
      * @param Request $request
      *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
-    public function newEventAction(Request $request)
+    public function newSessionAction($id, Request $request)
     {
-        $event = $this->get('at21_eboxoffice_event');
-        $form = $this->createForm('event', $event);
+        $session = $this->get('at21_eboxoffice_session');
+        $play = $this->getDoctrine()
+            ->getManager()
+            ->getRepository('At21EBoxOfficeBundle:Play')
+            ->find($id);
+        $session->setPlay($play);
+        $form = $this->createForm('session', $session);
 
         $form->handleRequest($request);
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $em->persist($event);
-            $em->flush();
-            $event->initializeSeats();
-            $em->persist($event);
+            $em->persist($session);
             $em->flush();
 
             return $this->redirect($this->generateUrl('at21_eboxoffice_admin'));
         }
 
-        return $this->render('At21EBoxOfficeBundle:Event:newEvent.html.twig',
+        return $this->render('At21EBoxOfficeBundle:Session:newSession.html.twig',
             array(
+                'play' => $play,
                 'form' => $form->createView()
             )
         );
@@ -44,25 +48,25 @@ class EventController extends Controller
      *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
-    public function updateEventAction($id, $request)
+    public function updateSessionAction($id, $request)
     {
-        $event = $this->getDoctrine()
+        $session = $this->getDoctrine()
             ->getManager()
-            ->getRepository('At21EBoxOfficeBundle:Event')
+            ->getRepository('At21EBoxOfficeBundle:Session')
             ->find($id);
-        $form = $this->createForm('event', $event);
+        $form = $this->createForm('session', $session);
 
         $form->handleRequest($request);
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $em->persist($event);
+            $em->persist($session);
             $em->flush();
 
             return $this->redirect($this->generateUrl('at21_eboxoffice_admin'));
         }
 
-        return $this->render('At21EBoxOfficeBundle:Event:newEvent.html.twig',
+        return $this->render('At21EBoxOfficeBundle:Session:newSession.html.twig',
             array(
                 'form' => $form->createView()
             )
@@ -74,18 +78,18 @@ class EventController extends Controller
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function checkEventAction($id)
+    public function checkSessionAction($id)
     {
-        $event = $this->getDoctrine()
+        $session = $this->getDoctrine()
             ->getManager()
-            ->getRepository('At21EBoxOfficeBundle:Event')
+            ->getRepository('At21EBoxOfficeBundle:Session')
             ->find($id);
-        $theatre = $event->getTheatre();
+        $theatre = $session->getTheatre();
         $seats = $this->getDoctrine()
             ->getManager()
             ->getRepository('At21EBoxOfficeBundle:Seat')
-            ->getEventSeats($id);
-        return $this->render('At21EBoxOfficeBundle:Event:checkEvent.html.twig',
+            ->getSessionSeats($id);
+        return $this->render('At21EBoxOfficeBundle:Session:checkSession.html.twig',
             array(
                 'theatre' => $theatre,
                 'seats' => $seats
@@ -97,15 +101,15 @@ class EventController extends Controller
      * @param $id
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
-    public function deleteEventAction($id)
+    public function deleteSessionAction($id)
     {
-        $event = $this->getDoctrine()
+        $session = $this->getDoctrine()
             ->getManager()
-            ->getRepository('At21EBoxOfficeBundle:Event')
+            ->getRepository('At21EBoxOfficeBundle:Session')
             ->find($id);
         $em = $this->getDoctrine()
             ->getManager();
-        $em->remove($event);
+        $em->remove($session);
         $em->flush();
         return $this->redirect($this->generateUrl('at21_eboxoffice_admin'));
     }
