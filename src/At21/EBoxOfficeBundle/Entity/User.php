@@ -28,7 +28,7 @@ class User extends BaseUser
     /**
      * @var ArrayCollection
      *
-     * @ORM\OneToMany(targetEntity="Seat", mappedBy="user", cascade={"persist"})
+     * @ORM\OneToMany(targetEntity="Seat", mappedBy="user", cascade={"persist", "remove"})
      */
     private $seats;
 
@@ -37,4 +37,22 @@ class User extends BaseUser
         parent::__construct();
         // your own logic
     }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getSeats()
+    {
+        return $this->seats;
+    }
+
+    /**
+     * @param ArrayCollection $seats
+     */
+    public function setSeats($seats)
+    {
+        $this->seats = $seats;
+    }
+
+
 }
