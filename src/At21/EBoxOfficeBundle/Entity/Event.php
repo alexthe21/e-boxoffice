@@ -127,10 +127,13 @@ class Event
      * Set title
      *
      * @param string $title
+     * @return Event
      */
     public function setTitle($title)
     {
         $this->title = $title;
+
+        return $this;
     }
 
     /**
