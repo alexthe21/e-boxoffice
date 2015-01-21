@@ -3,6 +3,7 @@
 namespace At21\EBoxOfficeBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 
 class SessionController extends Controller
@@ -94,10 +95,28 @@ class SessionController extends Controller
             ->findSeatsBySessionId($id);
         return $this->render('At21EBoxOfficeBundle:Session:checkSession.html.twig',
             array(
+                'session' => $session,
                 'theatre' => $theatre,
                 'seats' => $seats
             )
         );
+    }
+
+    /**
+     * @param integer $id
+     * @param Request $request
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function refreshAction($id, Request $request)
+    {
+        $session = $this->getDoctrine()
+            ->getManager()
+            ->getRepository('At21EBoxOfficeBundle:Session')
+            ->find($id);
+        $serializer = $this->get('jms_serializer');
+        $response = $serializer->serialize($session, 'json');
+        return new Response($response);
     }
 
     /**

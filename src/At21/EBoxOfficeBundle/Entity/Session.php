@@ -4,12 +4,16 @@ namespace At21\EBoxOfficeBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
+use JMS\Serializer\Annotation\ExclusionPolicy;
+use JMS\Serializer\Annotation\Exclude;
 
 /**
  * Session
  *
  * @ORM\Table()
  * @ORM\Entity(repositoryClass="At21\EBoxOfficeBundle\Entity\SessionRepository")
+ *
+ * @ExclusionPolicy("all")
  */
 class Session
 {
@@ -25,6 +29,7 @@ class Session
     /**
      * @ORM\Version
      * @ORM\Column(type="datetime")
+     * @Exclude
      */
     private $version;
 
