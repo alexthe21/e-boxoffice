@@ -4,7 +4,6 @@
 $(document)
     .ready(function() {
 
-        //Custom
         $('td').hover(function(){
             $(this).toggleClass('active');
             $(this).css('cursor', 'pointer');
