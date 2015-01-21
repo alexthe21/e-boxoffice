@@ -14,7 +14,7 @@ class SessionController extends Controller
      *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
-    public function newSessionAction($id, Request $request)
+    public function newAction($id, Request $request)
     {
         $session = $this->get('at21_eboxoffice_session');
         $play = $this->getDoctrine()
@@ -28,6 +28,9 @@ class SessionController extends Controller
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
+            $em->persist($session);
+            $em->flush();
+            $session->initializeSeats();
             $em->persist($session);
             $em->flush();
 
@@ -48,7 +51,7 @@ class SessionController extends Controller
      *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
-    public function updateSessionAction($id, $request)
+    public function updateAction($id, $request)
     {
         $session = $this->getDoctrine()
             ->getManager()
@@ -74,11 +77,11 @@ class SessionController extends Controller
     }
 
     /**
-     * @param $id
+     * @param integer $id
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function checkSessionAction($id)
+    public function checkAction($id)
     {
         $session = $this->getDoctrine()
             ->getManager()
@@ -88,7 +91,7 @@ class SessionController extends Controller
         $seats = $this->getDoctrine()
             ->getManager()
             ->getRepository('At21EBoxOfficeBundle:Seat')
-            ->getSessionSeats($id);
+            ->findSeatsBySessionId($id);
         return $this->render('At21EBoxOfficeBundle:Session:checkSession.html.twig',
             array(
                 'theatre' => $theatre,
@@ -101,7 +104,7 @@ class SessionController extends Controller
      * @param $id
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
-    public function deleteSessionAction($id)
+    public function deleteAction($id)
     {
         $session = $this->getDoctrine()
             ->getManager()

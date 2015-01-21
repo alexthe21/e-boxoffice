@@ -13,17 +13,17 @@ use Doctrine\ORM\EntityRepository;
 class SeatRepository extends EntityRepository
 {
     /**
-     * @param integer $sessionId
+     * @param integer $id
      * @return array
      */
-    public function findSessionSeats($sessionId)
+    public function findSeatsBySessionId($id)
     {
         return $this->getEntityManager()
             ->createQuery(
                 'SELECT s FROM At21EBoxOfficeBundle:Seat s JOIN s.session se
-                WHERE se.id = :sessionId ORDER BY s.rowNumber, s.columnNumber'
+                WHERE se.id = :id ORDER BY s.rowNumber, s.columnNumber'
             )
-            ->setParameter('sessionId', $sessionId)
+            ->setParameter('id', $id)
             ->getResult();
     }
 }

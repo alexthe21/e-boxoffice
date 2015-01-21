@@ -7,7 +7,7 @@ use Symfony\Component\HttpFoundation\Request;
 
 class TheatreController extends Controller
 {
-    public function newTheatreAction(Request $request)
+    public function newAction(Request $request)
     {
         $theatre = $this->get('at21_eboxoffice_theatre');
         $form = $this->createForm('theatre', $theatre);

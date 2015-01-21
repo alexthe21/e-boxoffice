@@ -13,7 +13,7 @@ class PlayController extends Controller
      *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
-    public function newPlayAction(Request $request)
+    public function newAction(Request $request)
     {
         $play = $this->get('at21_eboxoffice_play');
         $form = $this->createForm('play', $play);
@@ -41,7 +41,7 @@ class PlayController extends Controller
      *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
-    public function updatePlayAction($id, $request)
+    public function updateAction($id, $request)
     {
         $play = $this->getDoctrine()
             ->getManager()
@@ -71,7 +71,7 @@ class PlayController extends Controller
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function checkPlayAction($id)
+    public function checkAction($id)
     {
         $play = $this->getDoctrine()
             ->getManager()
@@ -93,7 +93,7 @@ class PlayController extends Controller
      * @param $id
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
-    public function deletePlayAction($id)
+    public function deleteAction($id)
     {
         $play = $this->getDoctrine()
             ->getManager()

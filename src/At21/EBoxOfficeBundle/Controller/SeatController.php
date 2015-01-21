@@ -3,6 +3,7 @@
 namespace At21\EBoxOfficeBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 
 class SeatController extends Controller
@@ -12,7 +13,7 @@ class SeatController extends Controller
      *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
-    public function bookSeatAction($id)
+    public function bookAction($id)
     {
         $seat = $this->getDoctrine()
             ->getManager()
@@ -31,25 +32,23 @@ class SeatController extends Controller
     }
 
     /**
-     * @param $id
+     * @param Request $request
      *
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     * @return JsonResponse
      */
-    public function confirmAndPaySeatAction($id)
+    public function confirmAndPayAction(Request $request)
     {
-        $seat = $this->getDoctrine()
-            ->getManager()
-            ->getRepository('At21EBoxOfficeBundle:Seat')
-            ->find($id);
-        $seat->setIsBusy(1);
         $em = $this->getDoctrine()
             ->getManager();
-        $em->persist($seat);
+
+        $seats = $request->request->get('seats');
+        foreach($seats as $s){
+            $seat = $em->getRepository('At21EBoxOfficeBundle:Seat')->find($s['id']);
+            $seat->setIsBusy(1);
+            $em->persist($seat);
+        }
         $em->flush();
-        return $this->render('At21EBoxOfficeBundle:Seat:bookSeat.html.twig',
-            array(
-                'seats' => $seat
-            )
-        );
+
+        return new JsonResponse();
     }
 }

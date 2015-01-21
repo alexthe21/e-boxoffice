@@ -13,34 +13,18 @@ use Doctrine\ORM\EntityRepository;
 class SessionRepository extends EntityRepository
 {
     /**
-     * Get sessions by play id
+     * Find sessions by play id
      *
-     * @param integer $playId
+     * @param integer $id
      * @return array
      */
-    public function findSessionsByPlayId($playId)
+    public function findSessionsByPlayId($id)
     {
         return $this->getEntityManager()
             ->createQuery(
-                'SELECT s FROM At21EBoxOfficeBundle:Session s JOIN At21EBoxOfficeBundle:Play p WHERE p.id = :playId'
+                'SELECT s FROM At21EBoxOfficeBundle:Session s JOIN At21EBoxOfficeBundle:Play p WHERE p.id = :id'
             )
-            ->setParameter('playId', $playId)
-            ->getResult();
-    }
-
-    /**
-     * Get theatre
-     *
-     * @param integer $sessionId
-     * @return array
-     */
-    public function getTheatre($sessionId)
-    {
-        return $this->getEntityManager()
-            ->createQuery(
-                'SELECT s FROM At21EBoxOfficeBundle:Session s WHERE s.id = :sessionId'
-            )
-            ->setParameter('sessionId', $sessionId)
+            ->setParameter('id', $id)
             ->getResult();
     }
 }

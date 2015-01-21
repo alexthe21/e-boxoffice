@@ -47,6 +47,8 @@
             </div>
         </div>
         <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.js"></script>
+        <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+        <script src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
         {% javascripts '@At21EBoxOfficeBundle/Resources/public/js/semantic.min.js'
                         '@At21EBoxOfficeBundle/Resources/public/js/main.js' %}
             <script type="text/javascript" src="{{ asset_url }}"></script>

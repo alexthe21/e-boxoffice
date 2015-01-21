@@ -33,10 +33,14 @@ play:
     new:
         header: New Play
         submit: Create Play
+    check:
+        link: Check Sessions
 session:
     new:
         header: New Session
         submit: Create Session
+    check:
+        link: Check Availability
 theatre:
     new:
         header: New Theatre

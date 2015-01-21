@@ -8,6 +8,7 @@
             <div class="ui segment">
                 <h2 class="ui header">{{ play.title }}</h2>
                 <p>{{ play.description }}</p>
+                <a href="{{ path('at21_eboxoffice_play_check', {'id': play.id}) }}">{{ 'play.check.link'|trans }}</a>
             </div>
         </div>
     {% endfor %}

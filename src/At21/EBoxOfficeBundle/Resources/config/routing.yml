@@ -8,77 +8,77 @@ at21_eboxoffice_admin:
 
 at21_eboxoffice_theatre_new:
     path:     /admin/theatre/new
-    defaults: { _controller: At21EBoxOfficeBundle:Theatre:newTheatre }
+    defaults: { _controller: At21EBoxOfficeBundle:Theatre:new }
 
 at21_eboxoffice_theatre_update:
     path:     /admin/theatre/update/{id}
-    defaults: { _controller: At21EBoxOfficeBundle:Theatre:updateTheatre }
+    defaults: { _controller: At21EBoxOfficeBundle:Theatre:update }
     requirements:
         id:  \d+
 
 at21_eboxoffice_theatre_delete:
     path:     /admin/theatre/delete/{id}
-    defaults: { _controller: At21EBoxOfficeBundle:Theatre:deleteTheatre }
+    defaults: { _controller: At21EBoxOfficeBundle:Theatre:delete }
     requirements:
         id:  \d+
 
 at21_eboxoffice_play_new:
     path:     /admin/play/new
-    defaults: { _controller: At21EBoxOfficeBundle:Play:newPlay }
+    defaults: { _controller: At21EBoxOfficeBundle:Play:new }
 
 at21_eboxoffice_play_update:
     path:     /admin/play/update/{id}
-    defaults: { _controller: At21EBoxOfficeBundle:Play:updatePlay }
+    defaults: { _controller: At21EBoxOfficeBundle:Play:update }
     requirements:
         id:  \d+
 
 at21_eboxoffice_play_check:
     path:     /play/check/{id}
-    defaults: { _controller: At21EBoxOfficeBundle:Play:checkPlay }
+    defaults: { _controller: At21EBoxOfficeBundle:Play:check }
     requirements:
         id:  \d+
 
 at21_eboxoffice_play_delete:
     path:     /admin/play/delete/{id}
-    defaults: { _controller: At21EBoxOfficeBundle:Play:deletePlay }
+    defaults: { _controller: At21EBoxOfficeBundle:Play:delete }
     requirements:
         id:  \d+
         
 at21_eboxoffice_session_new:
     path:     /admin/play/{id}/session/new
-    defaults: { _controller: At21EBoxOfficeBundle:Session:newSession }
+    defaults: { _controller: At21EBoxOfficeBundle:Session:new }
     requirements:
         id:  \d+
 
 at21_eboxoffice_session_update:
     path:     /admin/session/update/{id}
-    defaults: { _controller: At21EBoxOfficeBundle:Session:updateSession }
+    defaults: { _controller: At21EBoxOfficeBundle:Session:update }
     requirements:
         id:  \d+
 
 at21_eboxoffice_session_check:
     path:     /session/check/{id}
-    defaults: { _controller: At21EBoxOfficeBundle:Session:checkSession }
+    defaults: { _controller: At21EBoxOfficeBundle:Session:check }
     requirements:
         id:  \d+
 
 at21_eboxoffice_session_delete:
     path:     /admin/session/delete/{id}
-    defaults: { _controller: At21EBoxOfficeBundle:Session:deleteSession }
+    defaults: { _controller: At21EBoxOfficeBundle:Session:delete }
     requirements:
         id:  \d+
         
 at21_eboxoffice_seat_book:
     path:     /seat/book/{id}
-    defaults: { _controller: At21EBoxOfficeBundle:Seat:bookSeat }
+    defaults: { _controller: At21EBoxOfficeBundle:Seat:book }
     requirements:
         id:  \d+
 
 at21_eboxoffice_seat_confirm&pay:
-    path:     /seat/confirmAndPay/{id}
-    defaults: { _controller: At21EBoxOfficeBundle:Seat:confirmAndPaySeat }
-    requirements:
-        id:  \d+
+    path:     /seat/confirmAndPay
+    defaults: { _controller: At21EBoxOfficeBundle:Seat:confirmAndPay }
+    options:
+        exposure: true
 
 at21_eboxoffice_user:
     path:     /user
