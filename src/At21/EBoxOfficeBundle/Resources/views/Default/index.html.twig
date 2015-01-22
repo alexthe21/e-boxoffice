@@ -1,5 +1,23 @@
 {% extends "::base.html.twig" %}
 
+{% trans_default_domain 'At21EBoxOfficeBundle' %}
+
 {% block body %}
-hello
+    <div class="row">
+        <div class="column">
+            <div class="ui message main">
+                <h1 class="ui header">E-BoxOfficeBundle</h1>
+                <p>This is a bundle to sell theatre tickets. Payments methods should be implemented properly.</p>
+            </div>
+        </div>
+    </div>
+    {% for play in plays %}
+        <div class="four wide column">
+            <div class="ui segment">
+                <h2 class="ui header">{{ play.title }}</h2>
+                <p>{{ play.description }}</p>
+                <a href="{{ path('at21_eboxoffice_play_check', {'id': play.id}) }}">{{ 'play.check.link'|trans }}</a>
+            </div>
+        </div>
+    {% endfor %}
 {% endblock %}

@@ -8,6 +8,13 @@ class DefaultController extends Controller
 {
     public function indexAction()
     {
-        return $this->render('At21EBoxOfficeBundle:Default:index.html.twig');
+        $plays = $this->getDoctrine()
+            ->getRepository('At21EBoxOfficeBundle:Play')
+            ->findAll();
+        return $this->render('At21EBoxOfficeBundle:Default:index.html.twig',
+            array(
+                'plays' => $plays
+            )
+        );
     }
 }

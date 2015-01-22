@@ -3,8 +3,10 @@
 namespace At21\EBoxOfficeBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
+use Doctrine\DBAL\LockMode;
+use Doctrine\ORM\OptimisticLockException;
 
 class SeatController extends Controller
 {
@@ -34,14 +36,29 @@ class SeatController extends Controller
     /**
      * @param Request $request
      *
-     * @return JsonResponse
+     * @return Response
      */
     public function confirmAndPayAction(Request $request)
     {
         $em = $this->getDoctrine()
             ->getManager();
-
         $seats = $request->request->get('seats');
+        $userId = $request->request->get('userId');
+        $amount = 0;
+        try {
+            $user = $em->getRepository('At21EBoxOfficeBundle:User')->find($userId);
+            foreach ($seats as $seat){
+                $entity = $em->find('At21EBoxOfficeBundle:Seat', $seat['id'], LockMode::OPTIMISTIC, $seat['version']);
+                $entity->setIsBusy(1);
+                $entity->setUser($user);
+                $em->persist($entity);
+                $amount += intval($seat['price']);
+            }
+            $em->flush();
+            $message = 'Purchase Confirmed!';
+        } catch(OptimisticLockException $e) {
+            $message = "Sorry, somebody already bought some of the seats you were trying to buy!";
+        }
         foreach($seats as $s){
             $seat = $em->getRepository('At21EBoxOfficeBundle:Seat')->find($s['id']);
             $seat->setIsBusy(1);
@@ -49,6 +66,6 @@ class SeatController extends Controller
         }
         $em->flush();
 
-        return new JsonResponse();
+        return new Response($message);
     }
 }

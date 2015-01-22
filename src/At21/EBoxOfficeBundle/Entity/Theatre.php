@@ -22,6 +22,12 @@ class Theatre
     private $id;
 
     /**
+     * @ORM\Version
+     * @ORM\Column(type="integer")
+     */
+    private $version;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="name", type="string")
@@ -50,6 +56,29 @@ class Theatre
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * Get version
+     *
+     * @return mixed
+     */
+    public function getVersion()
+    {
+        return $this->version;
+    }
+
+    /**
+     * Set version
+     *
+     * @param mixed $version
+     * @return Theatre
+     */
+    public function setVersion($version)
+    {
+        $this->version = $version;
+
+        return $this;
     }
 
     /**

@@ -26,6 +26,12 @@ class User extends BaseUser
     protected $id;
 
     /**
+     * @ORM\Version
+     * @ORM\Column(type="integer")
+     */
+    protected $version;
+
+    /**
      * @var ArrayCollection
      *
      * @ORM\OneToMany(targetEntity="Seat", mappedBy="user", cascade={"persist", "remove"})
@@ -37,6 +43,30 @@ class User extends BaseUser
         parent::__construct();
         // your own logic
     }
+
+    /**
+     * Get version
+     *
+     * @return mixed
+     */
+    public function getVersion()
+    {
+        return $this->version;
+    }
+
+    /**
+     * Set version
+     *
+     * @param mixed $version
+     * @return User
+     */
+    public function setVersion($version)
+    {
+        $this->version = $version;
+
+        return $this;
+    }
+
 
     /**
      * Get Seats

@@ -23,7 +23,7 @@ class Seat
 
     /**
      * @ORM\Version
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="integer")
      */
     private $version;
 

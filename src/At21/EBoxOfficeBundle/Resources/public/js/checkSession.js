@@ -4,6 +4,7 @@
 $(document)
     .ready(function() {
         var seats = [];
+        var totalAmount = 0;
         $('td')
             .hover(function(){
                 $(this).addClass('active');
@@ -14,14 +15,14 @@ $(document)
             })
             .click(function(){
                 var seat = $(this).children().data();
-                if(!$(this).hasClass('negative')) {
+                if(!$(this).hasClass('negative') && !$(this).hasClass('warning')) {
                     $(this).addClass('positive');
                     var indexOf = $.inArray(seat, seats);
                     if (indexOf > -1) {
                         seats.splice(indexOf, 1);
                         $(this).removeClass('positive');
                         $('#seat-list').children().filter(function (index, element) {
-                            return $(this).data('row') == seat.row && $(this).data('column') == seat.column;
+                            return $(this).data('id') == seat.id;
                         }).remove();
                     } else {
                         seats.push(seat);
@@ -35,7 +36,7 @@ $(document)
                         seat.column +
                         '</div></div>');
                     }
-                    var totalAmount = 0;
+
                     seats.forEach(function (element, index, array) {
                         totalAmount += element.price;
                     });
@@ -43,27 +44,28 @@ $(document)
                 }
             });
         $('#confirmAndPay').click(function(){
-            var data = {
-                'seats': seats
+            var dataSet = {
+                'seats': seats,
+                'userId': $('#userId').val()
             };
             $.ajax({
                 type: "post",
-                data: data,
-                dataType: "html",
+                data: dataSet,
                 url: Routing.generate('at21_eboxoffice_seat_confirm&pay'),
-                crossDomain : true,
+                crossDomain: true,
                 async: true,
-                beforeSend : function(){
-                    $(this).html('<div class="ui loader"></div>');
+                beforeSend: function(){
+                    $('#confirmAndPay').addClass('ui loading button');
                 },
                 success: function(data) {
-                    data.seats.forEach(function(element, index, array){
-                        if(element.is_busy == true ){
-                            $('div[data-id="' + element.id + '"]').parent().removeClass('positive').addClass('negative');
-                        } else {
-                            $('div[data-id="' + element.id + '"]').parent().removeClass('negative').removeClass('positive');
-                        }
-                    });
+                   $('#confirmAndPay')
+                       .html('<i class="checkmark icon"></i>' + data)
+                       .removeClass('ui loading button')
+                       .addClass('ui green button');
+
+                    seats = [];
+                    totalAmount = 0;
+                    refreshSession();
                 },
                 error: function(jqXHR, textStatus, errorThrown) {
                     $(this).html('Error! ' + textStatus + ' ' + errorThrown);
@@ -76,21 +78,26 @@ $(document)
 
 var refreshSession = function(){
     var id = $('#sessionId').val();
+    var userId = $('#userId').val();
     $.ajax({
         type: "get",
         dataType: "json",
         url: Routing.generate('at21_eboxoffice_session_refresh', {'id': id}),
-        crossDomain : true,
+        crossDomain: true,
         async: true,
-        beforeSend : function(){
+        beforeSend: function(){
             $(this).html('<div class="ui loader"></div>');
         },
         success: function(data) {
             data.seats.forEach(function(element, index, array){
                 if(element.is_busy == true ){
-                    $('div[data-id="' + element.id + '"]').parent().removeClass('positive').addClass('negative');
+                    if(element.user.id != userId){
+                        $('div[data-id="' + element.id + '"]').parent().removeClass('positive').addClass('negative');
+                    } else {
+                        $('div[data-id="' + element.id + '"]').parent().removeClass('positive').addClass('warning');
+                    }
                 } else {
-                    $('div[data-id="' + element.id + '"]').parent().removeClass('negative').removeClass('positive');
+                    $('div[data-id="' + element.id + '"]').parent().removeClass('negative');
                 }
             });
         },

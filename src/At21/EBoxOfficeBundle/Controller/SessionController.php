@@ -88,27 +88,19 @@ class SessionController extends Controller
             ->getManager()
             ->getRepository('At21EBoxOfficeBundle:Session')
             ->find($id);
-        $theatre = $session->getTheatre();
-        $seats = $this->getDoctrine()
-            ->getManager()
-            ->getRepository('At21EBoxOfficeBundle:Seat')
-            ->findSeatsBySessionId($id);
         return $this->render('At21EBoxOfficeBundle:Session:checkSession.html.twig',
             array(
-                'session' => $session,
-                'theatre' => $theatre,
-                'seats' => $seats
+                'session' => $session
             )
         );
     }
 
     /**
      * @param integer $id
-     * @param Request $request
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function refreshAction($id, Request $request)
+    public function refreshAction($id)
     {
         $session = $this->getDoctrine()
             ->getManager()

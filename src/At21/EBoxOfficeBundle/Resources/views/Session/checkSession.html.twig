@@ -3,26 +3,31 @@
 {% trans_default_domain 'At21EBoxOfficeBundle' %}
 
 {% block body %}
+    <input id="userId" type="hidden" value="{{ app.user.id }}"/>
     <input id="sessionId" type="hidden" value="{{ session.id }}"/>
     <div class="sixteen wide column">
         <table class="ui definition table">
             <thead>
                 <tr>
                     <th colspan="1"></th>
-                    {% for i in 1..theatre.numberOfSeatsPerRow %}
+                    {% for i in 1..session.theatre.numberOfSeatsPerRow %}
                         <th>{{ i }}</th>
                     {% endfor %}
                 </tr>
             </thead>
-        {% for seat in seats %}
+        {% for seat in session.seats %}
             {% if seat.columnNumber == 1 %}
                 <tr><td>{{ seat.rowNumber }}</td>
             {% endif %}
-            {% if seat.isBusy %}
-                <td class="negative"><div>R: {{ seat.rowNumber }}</div><div>C: {{ seat.columnNumber }}</div></td>
+            {% if (seat.isBusy) and (seat.user) and (app.user.id == seat.user.id) %}
+                <td class="warning">
+            {% elseif seat.isBusy %}
+                <td class="negative">
             {% else %}
                 <td>
+            {% endif %}
                     <div data-id="{{ seat.id }}"
+                         data-version="{{ seat.version }}"
                          data-row="{{ seat.rowNumber }}"
                          data-column="{{ seat.columnNumber }}"
                          data-price="{{ seat.session.price }}">
@@ -30,8 +35,8 @@
                         <div>C: {{ seat.columnNumber }}</div>
                     </div>
                 </td>
-            {% endif %}
-            {% if seat.columnNumber == theatre.numberOfSeatsPerRow %}
+
+            {% if seat.columnNumber == session.theatre.numberOfSeatsPerRow %}
                 </tr>
             {% endif %}
         {% endfor %}
