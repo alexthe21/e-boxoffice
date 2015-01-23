@@ -77,14 +77,9 @@ class PlayController extends Controller
             ->getManager()
             ->getRepository('At21EBoxOfficeBundle:Play')
             ->find($id);
-        $sessions = $this->getDoctrine()
-            ->getManager()
-            ->getRepository('At21EBoxOfficeBundle:Session')
-            ->findSessionsByPlayId($id);
         return $this->render('At21EBoxOfficeBundle:Play:checkPlay.html.twig',
             array(
-                'play' => $play,
-                'sessions' => $sessions
+                'play' => $play
             )
         );
     }

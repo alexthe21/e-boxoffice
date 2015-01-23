@@ -9,7 +9,7 @@
         </div>
     {% endif %}
 
-    {% for session in sessions %}
+    {% for session in play.sessions %}
         <div class="four wide column">
             <div class="ui segment">
                 <p>{{ session.date|date("m/d/Y H:i:s") }}</p>

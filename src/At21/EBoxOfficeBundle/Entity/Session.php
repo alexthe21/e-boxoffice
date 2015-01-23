@@ -32,7 +32,7 @@ class Session
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="date", type="datetime", unique=true)
+     * @ORM\Column(name="date", type="datetime")
      * @Exclude
      */
     private $date;
@@ -196,7 +196,7 @@ class Session
      * Set price
      *
      * @param double $price
-     * @return Play
+     * @return Session
      */
     public function setPrice($price)
     {
