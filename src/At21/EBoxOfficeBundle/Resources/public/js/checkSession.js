@@ -95,12 +95,12 @@ var refreshSession = function(){
                         $('div[data-id="' + element.id + '"]')
                             .children('img')
                             .attr('src', '/bundles/at21eboxoffice/images/busy-seat.png')
-                            .attr('alt', 'This seat is yours');;
+                            .attr('alt', 'This seat is yours');
                     } else {
                         $('div[data-id="' + element.id + '"]')
                             .children('img')
                             .attr('src', '/bundles/at21eboxoffice/images/your-seat.png')
-                            .attr('alt', 'This seat is busy');;
+                            .attr('alt', 'This seat is busy');
                     }
                 } else {
                     $('div[data-id="' + element.id + '"]')
