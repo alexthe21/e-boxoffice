@@ -92,12 +92,21 @@ var refreshSession = function(){
             data.seats.forEach(function(element, index, array){
                 if(element.is_busy == true ){
                     if(element.user.id != userId){
-                        $('div[data-id="' + element.id + '"]').parent().removeClass('positive').addClass('negative');
+                        $('div[data-id="' + element.id + '"]')
+                            .children('img')
+                            .attr('src', '/bundles/at21eboxoffice/images/busy-seat.png')
+                            .attr('alt', 'This seat is yours');;
                     } else {
-                        $('div[data-id="' + element.id + '"]').parent().removeClass('positive').addClass('warning');
+                        $('div[data-id="' + element.id + '"]')
+                            .children('img')
+                            .attr('src', '/bundles/at21eboxoffice/images/your-seat.png')
+                            .attr('alt', 'This seat is busy');;
                     }
                 } else {
-                    $('div[data-id="' + element.id + '"]').parent().removeClass('negative');
+                    $('div[data-id="' + element.id + '"]')
+                        .children('img')
+                        .attr('src', '/bundles/at21eboxoffice/images/seat.png')
+                        .attr('alt', 'This seat is available');
                 }
             });
         },
