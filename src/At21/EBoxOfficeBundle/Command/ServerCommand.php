@@ -20,7 +20,7 @@ class ServerCommand extends ContainerAwareCommand
     protected function configure()
     {
         $this
-            ->setName('at21:eboxoffice:server')
+            ->setName('at21:eboxoffice:server:run')
             ->setDescription('Start the BoxOffice server');
     }
 

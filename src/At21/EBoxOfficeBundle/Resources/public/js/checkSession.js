@@ -1,9 +1,34 @@
 /**
  * Created by Alejandro Jurado on 18/01/15.
  */
-var seats = []
+var seats = [];
 $(document)
     .ready(function() {
+        var conn = new WebSocket('ws://localhost:8080');
+        conn.onopen = function(e) {
+            console.log("Connection established!");
+            $('#confirmAndPay').click(function(){
+                seats.forEach(function(element, index, array){
+                    element.user = $('#userId').val();
+                });
+                var serializedSeats = JSON.stringify(seats);
+                conn.send(serializedSeats);
+            });
+            conn.onmessage = function(e) {
+                console.log(e.data);
+                var data = JSON.parse(e.data);
+                data.forEach(function(seat, index, array){
+                    var seatObj = $('div[data-id="' + seat.id + '"]');
+                    seatObj.data('user', seat.user);
+                    removeSeatFromSelectedSeatsList(seat);
+                    if(seat.user != $('#userId').val()){
+                        seatObj.children('img').attr('src', '/bundles/at21eboxoffice/images/busy-seat.png')
+                    } else {
+                        seatObj.children('img').attr('src', '/bundles/at21eboxoffice/images/your-seat.png')
+                    }
+                });
+            };
+        };
         $('td')
             .hover(function(){
                 $(this).addClass('active');
@@ -41,83 +66,8 @@ $(document)
                     recalculateAmount();
                 }
             });
-        $('#confirmAndPay').click(function(){
-            var dataSet = {
-                'seats': seats,
-                'userId': $('#userId').val()
-            };
-            $.ajax({
-                type: "post",
-                data: dataSet,
-                url: Routing.generate('at21_eboxoffice_seat_confirm&pay'),
-                crossDomain: true,
-                async: true,
-                beforeSend: function(){
-                    $('#confirmAndPay').addClass('ui loading button');
-                },
-                success: function(data) {
-                   $('#confirmAndPay')
-                       .html('<i class="checkmark icon"></i>' + data)
-                       .removeClass('ui loading button')
-                       .addClass('ui green button');
-                    seats = [];
-                    //refreshSession();
-                },
-                error: function(jqXHR, textStatus, errorThrown) {
-                    $(this).html('Error! ' + textStatus + ' ' + errorThrown);
-                }
-            });
-        });
-        //setInterval(refreshSession, 30000);
     })
 ;
-
-var refreshSession = function(){
-    var id = $('#sessionId').val();
-    var userId = $('#userId').val();
-    $.ajax({
-        type: "get",
-        dataType: "json",
-        url: Routing.generate('at21_eboxoffice_session_refresh', {'id': id}),
-        crossDomain: true,
-        async: true,
-        beforeSend: function(){
-            $(this).html('<div class="ui loader"></div>');
-        },
-        success: function(data) {
-            renderSeats(data.seats);
-        },
-        error: function(jqXHR, textStatus, errorThrown) {
-            $(this).html('Error! ' + textStatus + ' ' + errorThrown);
-        }
-    });
-}
-
-var renderSeats = function(seats){
-    var userId = $('#userId').val()
-    seats.forEach(function(seat, index, array){
-        if(seat.is_busy == true){
-            $('div[data-id="' + seat.id + '"]').data('is_busy', true);
-            removeSeatFromSelectedSeatsList(seat);
-            if(seat.user.id != parseInt(userId)){
-                $('div[data-id="' + seat.id + '"]')
-                    .children('img')
-                    .attr('src', '/bundles/at21eboxoffice/images/busy-seat.png')
-                    .attr('alt', 'This seat is busy');
-            } else {
-                $('div[data-id="' + seat.id + '"]')
-                    .children('img')
-                    .attr('src', '/bundles/at21eboxoffice/images/your-seat.png')
-                    .attr('alt', 'This seat is yours');
-            }
-        } else {
-            $('div[data-id="' + seat.id + '"]:not([class="selected"])')
-                .children('img')
-                .attr('src', '/bundles/at21eboxoffice/images/seat.png')
-                .attr('alt', 'This seat is available');
-        }
-    });
-}
 
 var removeSeatFromSelectedSeatsList = function(seat){
     $('#seat-list').children().filter(function (index, element) {

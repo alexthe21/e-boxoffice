@@ -114,10 +114,10 @@ class BoxOffice implements MessageComponentInterface
             }
 
         foreach ($this->clients as $client) {
-            if ($from !== $client) {
+            //if ($from !== $client) {
                 // The sender is not the receiver, send to each client connected
                 $client->send($msg);
-            }
+            //}
         }
     }
 }

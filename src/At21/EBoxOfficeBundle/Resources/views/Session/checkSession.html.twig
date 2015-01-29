@@ -64,32 +64,4 @@
 {% endblock %}
 {% block javascripts %}
     <script src="{{ asset('bundles/at21eboxoffice/js/checkSession.js') }}" type="text/javascript"></script>
-    <script>
-        $(document).ready(function(){
-            var conn = new WebSocket('ws://localhost:8080');
-            conn.onopen = function(e) {
-                console.log("Connection established!");
-                $('#confirmAndPay').click(function(){
-                    seats.forEach(function(element, index, array){
-                        element.user = $('#userId').val();
-                    });
-                    var serializedSeats = JSON.stringify(seats);
-                    conn.send(serializedSeats);
-                });
-                conn.onmessage = function(e) {
-                    console.log(e.data);
-                    var data = JSON.parse(e.data);
-                    data.forEach(function(seat, index, array){
-                        var seatObj = $('div[data-id="' + seat.id + '"]');
-                        seatObj.data('user', seat.user);
-                        if(seat.user != $('#userId').val()){
-                            seatObj.children('img').attr('src', '/bundles/at21eboxoffice/images/busy-seat.png')
-                        } else {
-                            seatObj.children('img').attr('src', '/bundles/at21eboxoffice/images/your-seat.png')
-                        }
-                    });
-                };
-            };
-        });
-    </script>
 {% endblock %}
