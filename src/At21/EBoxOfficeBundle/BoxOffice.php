@@ -11,6 +11,8 @@ namespace At21\EBoxOfficeBundle;
 
 use Ratchet\MessageComponentInterface;
 use Ratchet\ConnectionInterface;
+use Doctrine\DBAL\LockMode;
+use Doctrine\ORM\OptimisticLockException;
 
 class BoxOffice implements MessageComponentInterface
 {
@@ -92,6 +94,24 @@ class BoxOffice implements MessageComponentInterface
         $numRecv = count($this->clients) - 1;
         echo sprintf('Connection %d sending message "%s" to %d other connection%s' . "\n"
             , $from->resourceId, $msg, $numRecv, $numRecv == 1 ? '' : 's');
+
+        $seats = unserialize($msg);
+
+            try {
+                foreach($seats as $s){
+                    $seat = $this->em->getRepository('At21EBoxOfficeBundle:Seat')->find($s['id']);
+                    $user = $this->em->getRepository('At21EBoxOfficeBundle:User')->find($s['user']);
+                    $seat->setUser($user);
+                    $this->em->persist($seat);
+                    $seat = $this->em->find('At21EBoxOfficeBundle:Seat', $s['id'], LockMode::OPTIMISTIC, $s['version']);
+                    $user = $this->em->getRepository('At21EBoxOfficeBundle:User')->find($s['user']);
+                    $seat->setUser($user);
+                    $this->em->persist($seat);
+                }
+                $this->em->flush();
+            } catch(OptimisticLockException $e) {
+                echo "Sorry, but someone else has already changed this entity. Please apply the changes again!";
+            }
 
         foreach ($this->clients as $client) {
             if ($from !== $client) {

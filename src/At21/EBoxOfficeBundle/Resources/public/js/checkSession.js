@@ -61,14 +61,14 @@ $(document)
                        .removeClass('ui loading button')
                        .addClass('ui green button');
                     seats = [];
-                    refreshSession();
+                    //refreshSession();
                 },
                 error: function(jqXHR, textStatus, errorThrown) {
                     $(this).html('Error! ' + textStatus + ' ' + errorThrown);
                 }
             });
         });
-        setInterval(refreshSession, 30000);
+        //setInterval(refreshSession, 30000);
     })
 ;
 

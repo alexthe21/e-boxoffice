@@ -60,7 +60,6 @@
     </div>
     <div class="sixteen wide column">
         <div id="confirmAndPay" class="ui button">Confirm & Pay</div>
-        <div id="button">SEND</div>
     </div>
 {% endblock %}
 {% block javascripts %}
@@ -70,11 +69,25 @@
             var conn = new WebSocket('ws://localhost:8080');
             conn.onopen = function(e) {
                 console.log("Connection established!");
-                $('#button').click(function(){
-                    conn.send('Hello World!');
+                $('#confirmAndPay').click(function(){
+                    seats.forEach(function(element, index, array){
+                        element.user = $('#userId').val();
+                    });
+                    var serializedSeats = JSON.stringify(seats);
+                    conn.send(serializedSeats);
                 });
                 conn.onmessage = function(e) {
                     console.log(e.data);
+                    var data = JSON.parse(e.data);
+                    data.forEach(function(seat, index, array){
+                        var seatObj = $('div[data-id="' + seat.id + '"]');
+                        seatObj.data('user', seat.user);
+                        if(seat.user != $('#userId').val()){
+                            seatObj.children('img').attr('src', '/bundles/at21eboxoffice/images/busy-seat.png')
+                        } else {
+                            seatObj.children('img').attr('src', '/bundles/at21eboxoffice/images/your-seat.png')
+                        }
+                    });
                 };
             };
         });
