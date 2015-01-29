@@ -1,10 +1,9 @@
 /**
  * Created by Alejandro Jurado on 18/01/15.
  */
+var seats = []
 $(document)
     .ready(function() {
-        var seats = [];
-        var totalAmount = 0;
         $('td')
             .hover(function(){
                 $(this).addClass('active');
@@ -15,18 +14,21 @@ $(document)
             })
             .click(function(){
                 var seat = $(this).children().data();
-                if(!$(this).hasClass('negative') && !$(this).hasClass('warning')) {
-                    $(this).addClass('positive');
+                var seatObj = $(this).children();
+                if(!seatObj.attr('data-user')) {
                     var indexOf = $.inArray(seat, seats);
                     if (indexOf > -1) {
                         seats.splice(indexOf, 1);
-                        $(this).removeClass('positive');
-                        $('#seat-list').children().filter(function (index, element) {
-                            return $(this).data('id') == seat.id;
-                        }).remove();
+                        removeSeatFromSelectedSeatsList(seat);
+                        seatObj.children('img').attr('src', '/bundles/at21eboxoffice/images/seat.png');
+                        seatObj.removeClass('selected');
                     } else {
+                        seatObj.addClass('selected');
+                        seatObj.children('img').attr('src', '/bundles/at21eboxoffice/images/selected-seat.png');
                         seats.push(seat);
-                        $('#seat-list').append('<div class="item" data-row="' +
+                        $('#seat-list').append('<div class="item" data-id="' +
+                        seat.id +
+                        '" data-row="' +
                         seat.row +
                         '" data-column="' +
                         seat.column +
@@ -36,11 +38,7 @@ $(document)
                         seat.column +
                         '</div></div>');
                     }
-
-                    seats.forEach(function (element, index, array) {
-                        totalAmount += element.price;
-                    });
-                    $('#amount').html('£ ' + totalAmount);
+                    recalculateAmount();
                 }
             });
         $('#confirmAndPay').click(function(){
@@ -62,9 +60,7 @@ $(document)
                        .html('<i class="checkmark icon"></i>' + data)
                        .removeClass('ui loading button')
                        .addClass('ui green button');
-
                     seats = [];
-                    totalAmount = 0;
                     refreshSession();
                 },
                 error: function(jqXHR, textStatus, errorThrown) {
@@ -89,29 +85,51 @@ var refreshSession = function(){
             $(this).html('<div class="ui loader"></div>');
         },
         success: function(data) {
-            data.seats.forEach(function(element, index, array){
-                if(element.is_busy == true ){
-                    if(element.user.id != userId){
-                        $('div[data-id="' + element.id + '"]')
-                            .children('img')
-                            .attr('src', '/bundles/at21eboxoffice/images/busy-seat.png')
-                            .attr('alt', 'This seat is yours');
-                    } else {
-                        $('div[data-id="' + element.id + '"]')
-                            .children('img')
-                            .attr('src', '/bundles/at21eboxoffice/images/your-seat.png')
-                            .attr('alt', 'This seat is busy');
-                    }
-                } else {
-                    $('div[data-id="' + element.id + '"]')
-                        .children('img')
-                        .attr('src', '/bundles/at21eboxoffice/images/seat.png')
-                        .attr('alt', 'This seat is available');
-                }
-            });
+            renderSeats(data.seats);
         },
         error: function(jqXHR, textStatus, errorThrown) {
             $(this).html('Error! ' + textStatus + ' ' + errorThrown);
         }
     });
+}
+
+var renderSeats = function(seats){
+    var userId = $('#userId').val()
+    seats.forEach(function(seat, index, array){
+        if(seat.is_busy == true){
+            $('div[data-id="' + seat.id + '"]').data('is_busy', true);
+            removeSeatFromSelectedSeatsList(seat);
+            if(seat.user.id != parseInt(userId)){
+                $('div[data-id="' + seat.id + '"]')
+                    .children('img')
+                    .attr('src', '/bundles/at21eboxoffice/images/busy-seat.png')
+                    .attr('alt', 'This seat is busy');
+            } else {
+                $('div[data-id="' + seat.id + '"]')
+                    .children('img')
+                    .attr('src', '/bundles/at21eboxoffice/images/your-seat.png')
+                    .attr('alt', 'This seat is yours');
+            }
+        } else {
+            $('div[data-id="' + seat.id + '"]:not([class="selected"])')
+                .children('img')
+                .attr('src', '/bundles/at21eboxoffice/images/seat.png')
+                .attr('alt', 'This seat is available');
+        }
+    });
+}
+
+var removeSeatFromSelectedSeatsList = function(seat){
+    $('#seat-list').children().filter(function (index, element) {
+        return $(this).data('id') == seat.id;
+    }).remove();
+    recalculateAmount();
+}
+
+var recalculateAmount = function(){
+    var totalAmount = 0;
+    seats.forEach(function(element, index, array){
+        totalAmount += parseFloat(element.price);
+    })
+    $('#amount').html('£ ' + totalAmount);
 }

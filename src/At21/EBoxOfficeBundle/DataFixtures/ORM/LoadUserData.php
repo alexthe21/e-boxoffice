@@ -36,15 +36,23 @@ class LoadUserData extends AbstractFixture implements ContainerAwareInterface, O
     {
         $userManager = $this->container->get('fos_user.user_manager');
 
-        $user = $userManager->createUser();
-        $user->setUsername('admin');
-        $user->setEmail('admin@email.com');
-        $user->setPlainPassword('admin');
-        $user->setEnabled(true);
-        $user->setRoles(array('ROLE_ADMIN'));
+        $user1 = $userManager->createUser();
+        $user1->setUsername('admin');
+        $user1->setEmail('admin@email.com');
+        $user1->setPlainPassword('admin');
+        $user1->setEnabled(true);
+        $user1->setRoles(array('ROLE_ADMIN'));
 
-        // Update the user
-        $userManager->updateUser($user, true);
+        $user2 = $userManager->createUser();
+        $user2->setUsername('user1');
+        $user2->setEmail('user1@email.com');
+        $user2->setPlainPassword('user1');
+        $user2->setEnabled(true);
+        $user2->setRoles(array('ROLE_USER'));
+
+        // Update the users
+        $userManager->updateUser($user1, true);
+        $userManager->updateUser($user2, true);
     }
 
     /**
