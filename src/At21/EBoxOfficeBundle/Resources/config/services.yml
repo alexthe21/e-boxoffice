@@ -27,6 +27,11 @@ services:
             - { name: form.type, alias: session }
 
     #Classes
+    at21_eboxoffice_boxoffice:
+        class: At21\EBoxOfficeBundle\BoxOffice
+        arguments:
+            - @doctrine.orm.default_entity_manager
+
     at21_eboxoffice_play:
         class: At21\EBoxOfficeBundle\Entity\Play
         arguments: []

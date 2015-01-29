@@ -60,8 +60,24 @@
     </div>
     <div class="sixteen wide column">
         <div id="confirmAndPay" class="ui button">Confirm & Pay</div>
+        <div id="button">SEND</div>
     </div>
 {% endblock %}
 {% block javascripts %}
     <script src="{{ asset('bundles/at21eboxoffice/js/checkSession.js') }}" type="text/javascript"></script>
+    <script>
+        $(document).ready(function(){
+            var conn = new WebSocket('ws://localhost:8080');
+            conn.onopen = function(e) {
+                console.log("Connection established!");
+            };
+
+            conn.onmessage = function(e) {
+                console.log(e.data);
+            };
+            $('#button').click(function(){
+                conn.send('Hello World!');
+            })
+        });
+    </script>
 {% endblock %}
