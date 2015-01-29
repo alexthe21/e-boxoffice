@@ -8,6 +8,8 @@
 
 namespace At21\EBoxOfficeBundle\Command;
 
+use Ratchet\Http\HttpServer;
+use Ratchet\WebSocket\WsServer;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -26,7 +28,14 @@ class ServerCommand extends ContainerAwareCommand
     {
         $chat = $this->getContainer()->get('at21_eboxoffice_boxoffice');
         $port = 8080;
-        $server = IoServer::factory($chat, $port);
+        $server = IoServer::factory(
+            new HttpServer(
+                new WsServer(
+                    $chat
+                )
+            ),
+            $port
+        );
         $output->writeln('');
         $output->writeln('E-BoxOffice Running and listening *:' . $port);
         $output->writeln('');
