@@ -3,6 +3,9 @@
 {% trans_default_domain 'At21EBoxOfficeBundle' %}
 
 {% block body %}
+    <div id="log" class="ui floating message">
+        <p>Way to go!</p>
+    </div>
     <input id="userId" type="hidden" value="{{ app.user.id }}"/>
     <input id="sessionId" type="hidden" value="{{ session.id }}"/>
     <div class="sixteen wide column">
