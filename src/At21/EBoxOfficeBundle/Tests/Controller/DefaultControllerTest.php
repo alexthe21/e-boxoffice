@@ -2,16 +2,45 @@
 
 namespace Acme\UserBundle\Tests\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
+use Symfony\Bundle\FrameworkBundle\Tests\Functional\WebTestCase;
 
-class DefaultControllerTest extends WebTestCase
+class DefaultControllerTest extends KernelTestCase
 {
+    /**
+     * @var \Doctrine\ORM\EntityManager
+     */
+    private $em;
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setUp()
+    {
+        self::bootKernel();
+        $this->em = static::$kernel->getContainer()
+            ->get('doctrine')
+            ->getManager()
+        ;
+    }
+
     public function testIndex()
     {
-        $client = static::createClient();
 
-        $crawler = $client->request('GET', '/hello/Fabien');
+        $plays = $this->em
+            ->getRepository('At21EBoxOfficeBundle:Play')
+            ->findAll()
+        ;
+        $this->assertContainsOnlyInstancesOf('At21\EBoxOfficeBundle\Entity\Play', $plays);
 
-        $this->assertTrue($crawler->filter('html:contains("Hello Fabien")')->count() > 0);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    protected function tearDown()
+    {
+        parent::tearDown();
+        $this->em->close();
     }
 }
