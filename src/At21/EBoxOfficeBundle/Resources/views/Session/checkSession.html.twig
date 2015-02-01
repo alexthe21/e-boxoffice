@@ -26,17 +26,17 @@
                      data-column="{{ seat.columnNumber }}"
                      data-price="{{ seat.session.price }}"
                      data-user="{% if seat.user != ''%}{{ seat.user.id }}{% endif %}">
-                    {% if (seat.isBusy) and (seat.user) and (app.user.id == seat.user.id) %}
+                    {% if seat.user is null %}
+                        {% image '@At21EBoxOfficeBundle/Resources/public/images/seat.png' %}
+                        <img class="ui image" src="{{ asset_url }}" alt="Free seat"/>
+                        {% endimage %}
+                    {% elseif (seat.user) and (app.user.id == seat.user.id) %}
                         {% image '@At21EBoxOfficeBundle/Resources/public/images/your-seat.png' %}
                         <img class="ui image" src="{{ asset_url }}" alt="Your seat"/>
                         {% endimage %}
-                    {% elseif seat.isBusy %}
+                    {% else %}
                         {% image '@At21EBoxOfficeBundle/Resources/public/images/busy-seat.png' %}
                         <img class="ui image" src="{{ asset_url }}" alt="Busy seat"/>
-                        {% endimage %}
-                    {% else %}
-                        {% image '@At21EBoxOfficeBundle/Resources/public/images/seat.png' %}
-                        <img class="ui image" src="{{ asset_url }}" alt="Free seat"/>
                         {% endimage %}
                     {% endif %}
                     <div>R: {{ seat.rowNumber }}</div>

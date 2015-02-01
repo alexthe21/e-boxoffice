@@ -95,7 +95,7 @@ class BoxOffice implements MessageComponentInterface
         echo sprintf('Connection %d sending message "%s" to %d other connection%s' . "\n"
             , $from->resourceId, $msg, $numRecv, $numRecv == 1 ? '' : 's');
 
-        $seats = unserialize($msg);
+        $seats = json_decode($msg, true);
 
             try {
                 foreach($seats as $s){

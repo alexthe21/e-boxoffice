@@ -6,7 +6,7 @@
  * Time: 18:42
  */
 
-namespace At21\EBoxOfficeBundle\Form;
+namespace At21\EBoxOfficeBundle\Form\Type;
 
 
 use Symfony\Component\Form\AbstractType;

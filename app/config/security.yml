@@ -19,7 +19,8 @@ security:
             form_login:
                 provider: fos_userbundle
                 #csrf_provider: form.csrf_provider
-                #default_target_path: at21_eboxoffice_homepage
+                default_target_path: at21_eboxoffice_homepage
+                always_use_default_target_path: false
             logout:
                 path: fos_user_security_logout
             anonymous: ~
