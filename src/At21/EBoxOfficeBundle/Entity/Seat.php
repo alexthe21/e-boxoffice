@@ -28,13 +28,6 @@ class Seat
     private $version;
 
     /**
-     * @var boolean
-     *
-     * @ORM\Column(name="isBusy", type="boolean")
-     */
-    private $isBusy;
-
-    /**
      * @var integer
      *
      * @ORM\Column(name="rowNumber", type="integer")
@@ -66,14 +59,12 @@ class Seat
      * Construct
      *
      * @param Session $session
-     * @param boolean $isBusy
      * @param integer $rowNumber
      * @param integer $columnNumber
      */
-    public function __construct($session, $isBusy, $rowNumber, $columnNumber)
+    public function __construct($session, $rowNumber, $columnNumber)
     {
         $this->session = $session;
-        $this->isBusy = $isBusy;
         $this->rowNumber = $rowNumber;
         $this->columnNumber = $columnNumber;
     }
@@ -81,7 +72,7 @@ class Seat
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -109,29 +100,6 @@ class Seat
         $this->version = $version;
 
         return $this;
-    }
-
-    /**
-     * Set isBusy
-     *
-     * @param boolean $isBusy
-     * @return Seat
-     */
-    public function setIsBusy($isBusy)
-    {
-        $this->isBusy = $isBusy;
-
-        return $this;
-    }
-
-    /**
-     * Get isBusy
-     *
-     * @return boolean
-     */
-    public function getIsBusy()
-    {
-        return $this->isBusy;
     }
 
     /**

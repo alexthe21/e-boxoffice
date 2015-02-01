@@ -175,7 +175,7 @@ class Session
     {
         for($i = 1; $i <= $this->theatre->getNumberOfRows(); $i++){
             for($j = 1; $j <= $this->theatre->getNumberOfSeatsPerRow(); $j++){
-                $this->seats->add(new Seat($this, false, $i, $j));
+                $this->seats->add(new Seat($this, $i, $j));
             }
         }
 

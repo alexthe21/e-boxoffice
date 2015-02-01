@@ -10,28 +10,6 @@ use Doctrine\ORM\OptimisticLockException;
 
 class SeatController extends Controller
 {
-    /**
-     * @param $id
-     *
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse
-     */
-    public function bookAction($id)
-    {
-        $seat = $this->getDoctrine()
-            ->getManager()
-            ->getRepository('At21EBoxOfficeBundle:Seat')
-            ->find($id);
-        $seat->setIsBusy(1);
-        $em = $this->getDoctrine()
-            ->getManager();
-        $em->persist($seat);
-        $em->flush();
-        return $this->render('At21EBoxOfficeBundle:Seat:bookSeat.html.twig',
-            array(
-                'seats' => $seat
-            )
-        );
-    }
 
     /**
      * @param Request $request
@@ -49,7 +27,6 @@ class SeatController extends Controller
             $user = $em->getRepository('At21EBoxOfficeBundle:User')->find($userId);
             foreach ($seats as $seat){
                 $entity = $em->find('At21EBoxOfficeBundle:Seat', $seat['id'], LockMode::OPTIMISTIC, $seat['version']);
-                $entity->setIsBusy(1);
                 $entity->setUser($user);
                 $em->persist($entity);
                 $amount += intval($seat['price']);

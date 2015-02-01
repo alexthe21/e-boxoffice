@@ -67,7 +67,6 @@ class User extends BaseUser
         return $this;
     }
 
-
     /**
      * Get Seats
      *
@@ -90,6 +89,4 @@ class User extends BaseUser
 
         return $this;
     }
-
-
 }

@@ -75,12 +75,6 @@ at21_eboxoffice_session_delete:
     defaults: { _controller: At21EBoxOfficeBundle:Session:delete }
     requirements:
         id:  \d+
-        
-at21_eboxoffice_seat_book:
-    path:     /seat/book/{id}
-    defaults: { _controller: At21EBoxOfficeBundle:Seat:book }
-    requirements:
-        id:  \d+
 
 at21_eboxoffice_seat_confirm&pay:
     path:     /seat/confirmAndPay
