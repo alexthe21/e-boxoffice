@@ -3,6 +3,80 @@
 {% trans_default_domain 'At21EBoxOfficeBundle' %}
 
 {% block body %}
+    <div class="ui small test modal">
+        <i class="close icon"></i>
+        <div class="header">
+            Payment Details
+        </div>
+        <div class="content">
+            <div class="ui form">
+                <label>Credit card</label>
+                <div class="two fields">
+                    <div class="field">
+                        <label>Type</label>
+                        <select id="card-type">
+                            <option value="">Select</option>
+                            <option value="visa">Visa</option>
+                            <option value="mastercard">Master Card</option>
+                            <option value="discover">Discover</option>
+                            <option value="amex">American Express</option>
+                        </select>
+                    </div>
+                    <div class="field">
+                        <label>Number</label>
+                        <div class="field">
+                            <input type="text" id="card-number" placeholder="Card Number">
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label>CVV2</label>
+                        <div class="field">
+                            <input type="text" id="card-cvv2" placeholder="CVV2">
+                        </div>
+                    </div>
+                </div>
+                <label>Name</label>
+                <div class="two fields">
+                    <div class="field">
+                        <label>First Name</label>
+                        <div class="field">
+                            <input type="text" id="card-firstname" placeholder="First Name">
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label>Second Name</label>
+                        <div class="field">
+                            <input type="text" id="card-lastname" placeholder="Last Name">
+                        </div>
+                    </div>
+                </div>
+                <label>Expire Date</label>
+                <div class="two fields">
+                    <div class="field">
+                        <label>Month</label>
+                        <div class="field">
+                            <input type="text" id="expire-month" placeholder="mm">
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label>Year</label>
+                        <div class="field">
+                            <input type="text" id="expire-year" placeholder="yyyy">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="actions">
+            <div class="ui black button">
+                Cancel
+            </div>
+            <div id="pay" class="ui positive right labeled icon button">
+                <i class="checkmark icon"></i>
+                Send
+            </div>
+        </div>
+    </div>
     <input id="userId" type="hidden" value="{{ app.user.id }}"/>
     <input id="sessionId" type="hidden" value="{{ session.id }}"/>
     <div class="sixteen wide column">
@@ -59,7 +133,7 @@
         <h4 id="amount" class="ui header">£ 0.00</h4>
     </div>
     <div class="sixteen wide column">
-        <div id="confirmAndPay" class="ui primary button">Confirm & Pay</div>
+        <div id="confirmOrder" class="ui primary button">Confirm & Pay</div>
     </div>
 {% endblock %}
 {% block javascripts %}

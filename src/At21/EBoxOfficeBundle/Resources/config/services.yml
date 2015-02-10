@@ -51,7 +51,7 @@ services:
     #PayPal
     paypal_rest_paymentcontroller:
         class: At21\EBoxOfficeBundle\Controller\PaymentController
-        arguments: []
+        arguments: ["@service_container", "@doctrine.orm.entity_manager"]
 
     paypal_rest_oauthtokencredential:
         class: PayPal\Auth\OAuthTokenCredential

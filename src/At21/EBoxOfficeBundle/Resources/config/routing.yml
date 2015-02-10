@@ -76,9 +76,9 @@ at21_eboxoffice_session_delete:
     requirements:
         id:  \d+
 
-at21_eboxoffice_seat_confirm&pay:
-    path:     /seat/confirmAndPay
-    defaults: { _controller: At21EBoxOfficeBundle:Seat:confirmAndPay }
+at21_eboxoffice_seat_allocate:
+    path:     /seat/allocate
+    defaults: { _controller: At21EBoxOfficeBundle:Seat:allocate }
     options:
         expose: true
 

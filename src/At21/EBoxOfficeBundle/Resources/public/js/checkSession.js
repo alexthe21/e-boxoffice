@@ -7,7 +7,7 @@ $(document)
         var conn = new WebSocket('ws://localhost:8080');
         conn.onopen = function() {
             console.log("Connection established!");
-            $('#confirmAndPay').click(function(){
+            $('#confirmOrder').click(function(){
                 seats.forEach(function(element){
                     element.user = $('#userId').val();
                     element.id = element.id.toString();
@@ -15,42 +15,57 @@ $(document)
                     element.row = element.row.toString();
                     element.column = element.column.toString();
                 });
-                var serializedSeats = JSON.stringify(seats);
-                var ajaxData = {
-                    'seats' : seats
-                };
-                try{
-                    $.ajax({
-                        type: "post",
-                        /*dataType: "json",*/
-                        data: ajaxData,
-                        url: Routing.generate('at21_eboxoffice_seat_confirm&pay'),
-                        crossDomain : true,
-                        beforeSend: function() {
-                            $('#confirmAndPay').removeClass('primary');
-                            $('#confirmAndPay').html('<div class="ui active inline mini loader"></div> Processing...');
-                        },
-                        success: function(data) {
-                            console.log(data);
-                            $('#confirmAndPay').addClass('primary');
-                            $('#confirmAndPay').html('Done!!');
-                            $('#confirmAndPay').parent().after('<div class="sixteen wide column">' +
-                            '<div id="log" class="ui segment">' + data + '</div>' +
-                            '</div>');
-                            conn.send(serializedSeats);
-                        },
-                        error: function(jqXHR, textStatus, errorThrown) {
-                            $('#confirmAndPay').removeClass('primary');
-                            $('#confirmAndPay').html('Sorry, there was an error');
-                            $('#log').html(jqXHR + ' ' + textStatus + ' ' + errorThrown);
-                            console.log('Sorry, there was an error: '+ jqXHR + ' ' + textStatus + ' ' + errorThrown);
-                        }
-                    });
-                    seats = [];
-                    recalculateAmount();
-                }catch(e){
-                    $('#confirmAndPay').html(e.message());
-                }
+                /*var serializedSeats = JSON.stringify(seats);*/
+                $('.small.test.modal')
+                    .modal('show')
+                ;
+                $('#pay').click(function(){
+                    var creditCard = [];
+                    creditCard[0] = $('#card-type').val();
+                    creditCard[1] = $('#card-number').val();
+                    creditCard[2] = $('#card-cvv2').val();
+                    creditCard[3] = $('#expire-month').val();
+                    creditCard[4] = $('#expire-year').val();
+                    creditCard[5] = $('#card-firstname').val();
+                    creditCard[6] = $('#card-lastname').val();
+                    var ajaxData = {
+                        'seats' : seats,
+                        'credit-card': creditCard
+                    };
+                    try{
+                        $.ajax({
+                            type: "post",
+                            data: ajaxData,
+                            url: Routing.generate('at21_eboxoffice_seat_allocate'),
+                            crossDomain : true,
+                            beforeSend: function() {
+                                $('#confirmOrder').removeClass('primary');
+                                $('#confirmOrder').html('<div class="ui active inline mini loader"></div> Processing...');
+                            },
+                            success: function(data) {
+                                console.log(data);
+                                $('#confirmOrder').addClass('primary');
+                                $('#confirmOrder').html('Done!!');
+                                $('#confirmOrder').parent().after('<div class="sixteen wide column">' +
+                                '<div id="log" class="ui segment">' + data + '</div>' +
+                                '</div>');
+                                conn.send(serializedSeats);
+                            },
+                            error: function(jqXHR, textStatus, errorThrown) {
+                                $('#confirmOrder').removeClass('primary');
+                                $('#confirmOrder').html('Sorry, there was an error');
+                                $('#log').html(jqXHR + ' ' + textStatus + ' ' + errorThrown);
+                                console.log('Sorry, there was an error: '+ jqXHR + ' ' + textStatus + ' ' + errorThrown);
+                            }
+                        });
+                        seats = [];
+                        removeSeatFromSelectedSeatsList();
+                        recalculateAmount();
+                    }catch(e){
+                        $('#confirmOrder').html(e.message);
+                    }
+                });
+
             });
             conn.onmessage = function(e) {
                 console.log(e.data);
