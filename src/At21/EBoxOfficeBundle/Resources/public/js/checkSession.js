@@ -15,7 +15,7 @@ $(document)
                     element.row = element.row.toString();
                     element.column = element.column.toString();
                 });
-                /*var serializedSeats = JSON.stringify(seats);*/
+                var serializedSeats = JSON.stringify(seats);
                 $('.small.test.modal')
                     .modal('show')
                 ;
@@ -49,7 +49,12 @@ $(document)
                                 $('#confirmOrder').parent().after('<div class="sixteen wide column">' +
                                 '<div id="log" class="ui segment">' + data + '</div>' +
                                 '</div>');
-                                conn.send(serializedSeats);
+                                if (typeof(data) != "undefined" && data.status == "completed"){
+                                    conn.send(serializedSeats);
+                                    seats = [];
+                                    removeSeatFromSelectedSeatsList();
+                                    recalculateAmount();
+                                }
                             },
                             error: function(jqXHR, textStatus, errorThrown) {
                                 $('#confirmOrder').removeClass('primary');
@@ -58,9 +63,6 @@ $(document)
                                 console.log('Sorry, there was an error: '+ jqXHR + ' ' + textStatus + ' ' + errorThrown);
                             }
                         });
-                        seats = [];
-                        removeSeatFromSelectedSeatsList();
-                        recalculateAmount();
                     }catch(e){
                         $('#confirmOrder').html(e.message);
                     }
