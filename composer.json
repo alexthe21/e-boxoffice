@@ -22,7 +22,8 @@
         "doctrine/doctrine-fixtures-bundle": "2.2.*",
         "friendsofsymfony/jsrouting-bundle": "~1.5",
         "jms/serializer-bundle": "0.13.*",
-        "cboden/ratchet": "0.3.*"
+        "cboden/ratchet": "0.3.*",
+        "paypal/rest-api-sdk-php": "*"
     },
     "require-dev": {
         "sensio/generator-bundle": "~2.3"

@@ -9,7 +9,7 @@ use Doctrine\Common\Collections\ArrayCollection;
  * Play
  *
  * @ORM\Table()
- * @ORM\Entity(repositoryClass="At21\EBoxOfficeBundle\Entity\PlayRepository")
+ * @ORM\Entity
  */
 class Play
 {

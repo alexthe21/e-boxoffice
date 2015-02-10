@@ -3,9 +3,6 @@
 {% trans_default_domain 'At21EBoxOfficeBundle' %}
 
 {% block body %}
-    <div id="log" class="ui floating message">
-        <p>Way to go!</p>
-    </div>
     <input id="userId" type="hidden" value="{{ app.user.id }}"/>
     <input id="sessionId" type="hidden" value="{{ session.id }}"/>
     <div class="sixteen wide column">
@@ -59,10 +56,10 @@
     </div>
     <div class="sixteen wide column">
         <div class="ui header">Amount: </div>
-        <h4 id="amount" class="ui header"></h4>
+        <h4 id="amount" class="ui header">£ 0.00</h4>
     </div>
     <div class="sixteen wide column">
-        <div id="confirmAndPay" class="ui button">Confirm & Pay</div>
+        <div id="confirmAndPay" class="ui primary button">Confirm & Pay</div>
     </div>
 {% endblock %}
 {% block javascripts %}

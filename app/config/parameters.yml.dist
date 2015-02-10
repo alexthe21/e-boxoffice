@@ -18,3 +18,7 @@ parameters:
 
     # A secret key that's used to generate certain security-related tokens
     secret:            ThisTokenIsNotSoSecretChangeIt
+
+    # Paypal App credentials
+    paypal_rest_clientid: YourClientId
+    paypal_rest_secret: YourSecret

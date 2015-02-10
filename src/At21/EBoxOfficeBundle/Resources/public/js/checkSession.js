@@ -5,10 +5,10 @@ var seats = [];
 $(document)
     .ready(function() {
         var conn = new WebSocket('ws://localhost:8080');
-        conn.onopen = function(e) {
+        conn.onopen = function() {
             console.log("Connection established!");
             $('#confirmAndPay').click(function(){
-                seats.forEach(function(element, index, array){
+                seats.forEach(function(element){
                     element.user = $('#userId').val();
                     element.id = element.id.toString();
                     element.version = element.version.toString();
@@ -16,8 +16,36 @@ $(document)
                     element.column = element.column.toString();
                 });
                 var serializedSeats = JSON.stringify(seats);
+                var ajaxData = {
+                    'seats' : seats
+                };
                 try{
-                    conn.send(serializedSeats);
+                    $.ajax({
+                        type: "post",
+                        /*dataType: "json",*/
+                        data: ajaxData,
+                        url: Routing.generate('at21_eboxoffice_seat_confirm&pay'),
+                        crossDomain : true,
+                        beforeSend: function() {
+                            $('#confirmAndPay').removeClass('primary');
+                            $('#confirmAndPay').html('<div class="ui active inline mini loader"></div> Processing...');
+                        },
+                        success: function(data) {
+                            console.log(data);
+                            $('#confirmAndPay').addClass('primary');
+                            $('#confirmAndPay').html('Done!!');
+                            $('#confirmAndPay').parent().after('<div class="sixteen wide column">' +
+                            '<div id="log" class="ui segment">' + data + '</div>' +
+                            '</div>');
+                            conn.send(serializedSeats);
+                        },
+                        error: function(jqXHR, textStatus, errorThrown) {
+                            $('#confirmAndPay').removeClass('primary');
+                            $('#confirmAndPay').html('Sorry, there was an error');
+                            $('#log').html(jqXHR + ' ' + textStatus + ' ' + errorThrown);
+                            console.log('Sorry, there was an error: '+ jqXHR + ' ' + textStatus + ' ' + errorThrown);
+                        }
+                    });
                     seats = [];
                     recalculateAmount();
                 }catch(e){
@@ -27,7 +55,7 @@ $(document)
             conn.onmessage = function(e) {
                 console.log(e.data);
                 var data = JSON.parse(e.data);
-                data.forEach(function(seat, index, array){
+                data.forEach(function(seat){
                     var seatObj = $('div[data-id="' + seat.id + '"]');
                     seatObj.data('user', seat.user);
                     removeSeatFromSelectedSeatsList(seat);
@@ -80,19 +108,19 @@ $(document)
 ;
 
 var removeSeatFromSelectedSeatsList = function(seat){
-    $('#seat-list').children().filter(function (index, element) {
+    $('#seat-list').children().filter(function () {
         return $(this).data('id') == seat.id;
     }).remove();
     recalculateAmount();
-}
+};
 
 var recalculateAmount = function(){
     var totalAmount = 0;
-    seats.forEach(function(element, index, array){
+    seats.forEach(function(element){
         totalAmount += parseFloat(element.price);
     });
     $('#amount').html('£ ' + toFixed(totalAmount, 2));
-}
+};
 
 var toFixed = function(value, precision) {
     var precision = precision || 0,
@@ -106,4 +134,4 @@ var toFixed = function(value, precision) {
         result += '.' + padding + fraction;
     }
     return result;
-}
+};

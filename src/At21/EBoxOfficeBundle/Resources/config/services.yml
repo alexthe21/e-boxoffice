@@ -48,3 +48,51 @@ services:
         class: At21\EBoxOfficeBundle\Entity\Seat
         arguments: []
 
+    #PayPal
+    paypal_rest_paymentcontroller:
+        class: At21\EBoxOfficeBundle\Controller\PaymentController
+        arguments: []
+
+    paypal_rest_oauthtokencredential:
+        class: PayPal\Auth\OAuthTokenCredential
+        arguments: ["%paypal_rest_clientid%", "%paypal_rest_secret%"]
+
+    paypal_rest_apicontext:
+        class: PayPal\Rest\ApiContext
+        arguments: ["@paypal_rest_oauthtokencredential"]
+
+    paypal_rest_creditcard:
+        class: PayPal\Api\CreditCard
+        arguments: []
+
+    paypal_rest_fundinginstrument:
+        class: PayPal\Api\FundingInstrument
+        arguments: []
+
+    paypal_rest_payer:
+        class: PayPal\Api\Payer
+        arguments: []
+
+    paypal_rest_item:
+        class: PayPal\Api\Item
+        arguments: []
+
+    paypal_rest_itemlist:
+        class: PayPal\Api\ItemList
+        arguments: []
+
+    paypal_rest_details:
+        class: PayPal\Api\Details
+        arguments: []
+
+    paypal_rest_amount:
+        class: PayPal\Api\Amount
+        arguments: []
+
+    paypal_rest_transaction:
+        class: PayPal\Api\Transaction
+        arguments: []
+
+    paypal_rest_payment:
+        class: PayPal\Api\Payment
+        arguments: []
